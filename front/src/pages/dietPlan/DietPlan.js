@@ -31,7 +31,7 @@ export const DietPlan = ({
     ) {
       console.log("condition true");
       const res = await Apis.getData2(
-        `http://localhost:5000/${userData._id}/dietplan`
+        `https://felx-backend.onrender.com/${userData._id}/dietplan`
       );
       console.log(await res);
       setUserData(await res); //to set the local storage

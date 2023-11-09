@@ -33,7 +33,7 @@ export const LoginForm = ({
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await Apis.login_post(`http://${IP}:5000/login`, LoginData);
+    const res = await Apis.login_post(`https://felx-backend.onrender.com/login`, LoginData);
     if (typeof res === "undefined") {
       alert(
         "there is something wrong with the back end or the ip configuration"
