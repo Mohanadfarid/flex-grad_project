@@ -8,7 +8,7 @@
   justify-content: space-between;
   padding: 20px;
   box-shadow: 0 4px 5px rgb(0 0 0 / 20%);
-  height: 90vh;
+  min-height: 90vh;
 }
 
 .left {
@@ -16,9 +16,11 @@
   flex-direction: column;
   align-items: center;
   width: 30%;
+
 }
 
 .left img {
+  width: min(80%,200px);
   border-radius: 50%;
   margin: 20px 0;
   border: 2px solid grey;
@@ -31,21 +33,11 @@
   font-weight: 700;
   font-size: larger;
   background-color: #00adb5;
-  width: 260px;
+  width: min(100%,260px);
   padding: 10px 0;
   border: 0;
   border-radius: 30px;
   cursor: pointer;
-}
-
-.left .edit {
-  margin-top: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 70px;
-  font-size: 14px;
-  color: #777989;
 }
 
 .left .edit i {
@@ -67,7 +59,7 @@
 
 .right .field {
   color: #777989;
-  width: 300px;
+  width: min(100%,300px);
   margin: 0 20px;
 }
 .right .field span {
@@ -84,4 +76,27 @@
 }
 .row {
   display: flex;
+}
+
+@media only screen and (max-width: 900px){
+  .profile_container{
+    align-items: center;
+    flex-direction: column;
+  }
+  .left{
+    width: 100%;
+  }
+  .right{
+    width: 100%;
+  }
+  body{
+    text-align: center;
+  }
+  .row{
+    flex-direction: column;
+    align-items: center;
+  }
+  .value_container{
+    width: 100%;
+  }
 }

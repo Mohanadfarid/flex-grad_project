@@ -3,8 +3,6 @@ import styles from "./profile.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 
-import Food from "../../components/food/Food";
-
 export const Profile = ({ currentPage, setcurrentPage, token, userData }) => {
   setcurrentPage("profile");
   let navigate = useNavigate();
@@ -34,10 +32,6 @@ export const Profile = ({ currentPage, setcurrentPage, token, userData }) => {
           <Link to={"/dietPlan"}>
             <button>Get your diet plan</button>
           </Link>
-          <div className={styles.edit}>
-            <i class="fa-solid fa-pen-to-square"></i>
-            <p>Edit</p>
-          </div>
         </div>
 
         <div className={styles.right}>
