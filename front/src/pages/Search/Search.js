@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./search.module.css";
 import { Nav } from "../../components/nav/Nav";
-import Food from "../../components/food/Food";
 
 import * as Apis from "../../api_handller.js";
 import SmallFoodCard from "./SmallFoodCard/SmallFoodCard";
@@ -9,12 +8,12 @@ import { Result } from "./Result/Result";
 const Search = ({
   currentPage,
   setcurrentPage,
-  token,
   userData,
   setUserData,
-  IP,
 }) => {
+
   setcurrentPage("search");
+
   const [input, setinput] = useState("");
   const [searchResult, setsearchResult] = useState([]);
   const [searchCategory, setsearchCategory] = useState("breakfast");
@@ -27,16 +26,19 @@ const Search = ({
     );
     setsearchResult(await result);
   };
+
   const changeSearchCategory_to_breakfast_Handller = () => {
     setsearchCategory("breakfast");
     setinput("");
     setsearchResult([]);
   };
+
   const changeSearchCategory_to_lunch_Handller = () => {
     setsearchCategory("lunch");
     setinput("");
     setsearchResult([]);
   };
+  
   const changeSearchCategory_to_dinner_Handller = () => {
     setsearchCategory("dinner");
     setinput("");
@@ -58,7 +60,6 @@ const Search = ({
           <div className={styles.mainContent}>
             <h2>start adding your favorite food now !</h2>
             <div className={styles.formController}>
-              {" "}
               <input
                 autoFocus
                 required
@@ -113,7 +114,7 @@ const Search = ({
               ):""}
             </div>
           </div>
-         {userData? <div className={styles.rSlider}>
+         {userData? <div className={`${styles.rSlider} ${styles.hideFromMobile}`}>
             {searchCategory === "breakfast" ? (
               <h3 className={styles.favheadder}>
                 your favorite breakfast food

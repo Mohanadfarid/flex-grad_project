@@ -101,7 +101,6 @@ export const Food = ({
       <img src={`${foodObject.url}`} alt="" />
       <p className={styles.name_text}>{foodObject.name}</p>
       <p className={styles.serving_text}>serving: {foodObject.serving}</p>
-      {/* <p className={styles.category_text}>category: {cardCategory.category}</p> */}
       <p className={styles.calories_text}> calories {Math.round(foodObject.calories)}</p>
 
       {userData ?  cardCategory === "breakfast"?(
