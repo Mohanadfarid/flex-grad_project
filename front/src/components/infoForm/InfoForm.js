@@ -3,8 +3,7 @@ import styles from "./infoForm.module.css";
 import * as Apis from "../../api_handller.js";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
-import AnimatedPage2 from "../animatedPage/AnimatedPage2";
-// to do re direct to login if not login
+
 export const InfoForm = ({
   IP,
   currentPage,
@@ -132,7 +131,6 @@ export const InfoForm = ({
             : ""
         }
       />
-      <AnimatedPage2>
         <div className={styles.form_body}>
           <div
             className={`${styles.progress_bar} ${
@@ -342,7 +340,7 @@ export const InfoForm = ({
             </div>
           </form>
         </div>
-      </AnimatedPage2>
+
     </div>
   );
 };

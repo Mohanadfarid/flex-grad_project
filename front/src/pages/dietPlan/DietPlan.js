@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import * as Apis from "../../api_handller.js";
-import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import Food from "../../components/food/Food";
 import { Nav } from "../../components/nav/Nav";
 import styles from "./dietPlan.module.css";
@@ -72,7 +71,7 @@ export const DietPlan = ({
             : ""
         }
       />
-      <AnimatedPage>
+
         <div className={styles.dietPlan_container}>
           {userData.calories > 100 ? (
             <div>
@@ -214,7 +213,7 @@ export const DietPlan = ({
             </div>
           )}
         </div>
-      </AnimatedPage>
+
     </div>
   );
 };

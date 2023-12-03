@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import * as Apis from "../../api_handller.js";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
-import AnimatedPage2 from "../animatedPage/AnimatedPage2";
+
 
 export const RegisterForm = ({ IP, currentPage, token, userData }) => {
   let navigate = useNavigate();
@@ -85,7 +85,7 @@ export const RegisterForm = ({ IP, currentPage, token, userData }) => {
             : ""
         }
       />
-      <AnimatedPage2>
+
         <div className={styles.Form_container}>
           <div className={styles.header_container}>
             <i className="fa-solid fa-user"></i>
@@ -180,7 +180,6 @@ export const RegisterForm = ({ IP, currentPage, token, userData }) => {
             </button>
           </form>
         </div>
-      </AnimatedPage2>
     </div>
   );
 };

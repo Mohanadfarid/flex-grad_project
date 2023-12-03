@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import * as Apis from "../../api_handller.js";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
-import AnimatedPage2 from "../animatedPage/AnimatedPage2";
 
 export const LoginForm = ({
   IP,
@@ -78,7 +77,6 @@ export const LoginForm = ({
             : ""
         }
       />
-      <AnimatedPage2>
         <div className={styles.Form_container}>
           <div className={styles.header_container}>
             <i className="fa-solid fa-right-to-bracket"></i>
@@ -136,7 +134,6 @@ export const LoginForm = ({
             </button>
           </form>
         </div>
-      </AnimatedPage2>
     </div>
   );
 };

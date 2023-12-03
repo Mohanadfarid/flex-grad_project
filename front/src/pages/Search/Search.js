@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./search.module.css";
 import { Nav } from "../../components/nav/Nav";
 import Food from "../../components/food/Food";
-import AnimatedPage from "../../components/animatedPage/AnimatedPage";
+
 import * as Apis from "../../api_handller.js";
 import SmallFoodCard from "./SmallFoodCard/SmallFoodCard";
 import { Result } from "./Result/Result";
@@ -54,7 +54,6 @@ const Search = ({
             : ""
         }
       />
-      <AnimatedPage>
         <div className={styles.pageBody}>
           <div className={styles.mainContent}>
             <h2>start adding your favorite food now !</h2>
@@ -181,7 +180,6 @@ const Search = ({
               : ""}
           </div>:""}
         </div>
-      </AnimatedPage>
     </div>
   );
 };
