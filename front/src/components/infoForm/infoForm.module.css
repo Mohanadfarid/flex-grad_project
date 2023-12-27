@@ -1,30 +1,35 @@
 .form_body {
-  margin: 0;
-  position: fixed;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 100px;
   background-color: white;
   box-shadow: 0 4px 5px rgb(0 0 0 / 20%);
   padding: 30px 50px;
   border-radius: 10px;
-  height: 80vh;
+  min-height: 80vh;
   width: 90vw;
   max-width: 600px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .progress_bar.one {
   width: 25%;
 }
+
 .progress_bar.two {
   width: 50%;
 }
+
 .progress_bar.three {
   width: 75%;
 }
+
 .progress_bar.four {
   width: 100%;
 }
+
 .progress_bar {
   position: absolute;
   top: 0;
@@ -95,6 +100,7 @@ form {
   position: relative;
   margin: 20px 0 0;
   padding: 20px 0;
+  width: 100%;
   height: 100%;
 }
 
@@ -126,7 +132,7 @@ form {
 }
 
 .btn {
-  bottom: 50px;
+  bottom: 20px;
   background-color: #00adb5;
   border: 0;
   color: white;
@@ -145,6 +151,7 @@ form {
 
 .nbtn {
   right: 0;
+  width: 40%;
 }
 .nbtn:hover {
   background-color: #00858b;
@@ -155,6 +162,7 @@ form {
   background-color: white;
   color: #00858b;
   left: 0;
+  width: 40%;
 }
 
 .pbtn:hover {
@@ -162,11 +170,12 @@ form {
 }
 
 .buttons_container {
-  position: absolute;
+  /* border: 1px solid black; */
+  margin-top: 20px;
+  position: relative;
   display: flex;
   width: 100%;
   justify-content: space-evenly;
-  bottom: 40px;
 }
 
 .options_container {
@@ -198,9 +207,11 @@ form {
 }
 
 @media only screen and (max-width: 600px) {
+  .form_body {
+    padding: 20px;
+  }
   .btn {
-    padding: 20px 40px;
-    margin: 0 10px;
+    padding: 20px 10px;
     /* 
   for mobile devices */
     -webkit-tap-highlight-color: transparent;
