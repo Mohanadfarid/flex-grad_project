@@ -4,7 +4,6 @@ import * as Apis from "../../api_handller.js";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
 
-
 export const RegisterForm = ({ IP, currentPage, token, userData }) => {
   let navigate = useNavigate();
   useEffect(() => {
@@ -40,7 +39,10 @@ export const RegisterForm = ({ IP, currentPage, token, userData }) => {
     //console.log(RegisterData); // debug line
     if (RegisterData.password === RegisterData.password2) {
       if (check_strong_pass()) {
-        const res = Apis.postData(`https://felx-backend.onrender.com/register`, RegisterData);
+        const res = Apis.postData(
+          `https://felx-backend.onrender.com/register`,
+          RegisterData
+        );
         handel_err_success(await res);
       } else {
         setErrors({
@@ -86,100 +88,103 @@ export const RegisterForm = ({ IP, currentPage, token, userData }) => {
         }
       />
 
-        <div className={styles.Form_container}>
-          <div className={styles.header_container}>
+      <div className={styles.Form_container}>
+        <div className={styles.header_container}>
+          <i className="fa-solid fa-user"></i>
+          <h2>Create account!</h2>
+        </div>
+
+        <form onSubmit={submitHandler}>
+          <div className={styles.form_control}>
+            <label htmlFor="name">
+              Name <p className={styles.err}>{Errors.name}</p>
+            </label>
+            <input
+              required
+              type="text"
+              id="name"
+              name="name"
+              value={RegisterData.name}
+              onChange={inputHandler}
+            />
             <i className="fa-solid fa-user"></i>
-            <h2>Create account!</h2>
           </div>
 
-          <form onSubmit={submitHandler}>
-            <div className={styles.form_control}>
-              <label htmlFor="name">
-                Name <p className={styles.err}>{Errors.name}</p>
-              </label>
-              <input
-                required
-                type="text"
-                id="name"
-                name="name"
-                value={RegisterData.name}
-                onChange={inputHandler}
-              />
-              <i className="fa-solid fa-user"></i>
-            </div>
+          <div className={styles.form_control}>
+            <label htmlFor="email">
+              Email <p className={styles.err}>{Errors.email}</p>
+            </label>
+            <input
+              required
+              type="email"
+              id="email"
+              name="email"
+              value={RegisterData.email}
+              onChange={inputHandler}
+            />
+            <i className="fa-solid fa-envelope"></i>
+          </div>
 
-            <div className={styles.form_control}>
-              <label htmlFor="email">
-                Email <p className={styles.err}>{Errors.email}</p>
-              </label>
-              <input
-                required
-                type="email"
-                id="email"
-                name="email"
-                value={RegisterData.email}
-                onChange={inputHandler}
-              />
-              <i className="fa-solid fa-envelope"></i>
-            </div>
+          <div className={styles.form_control}>
+            <label htmlFor="password">
+              Password <p className={styles.err}>{Errors.password}</p>
+            </label>
+            <input
+              required
+              type={showPass1 ? "text" : "password"}
+              id="password"
+              name="password"
+              value={RegisterData.password}
+              onChange={inputHandler}
+            />
+            <i
+              onClick={() => {
+                setshowPass1(!showPass1);
+              }}
+              className={`${styles.pass} ${
+                showPass1
+                  ? "fa-sharp fa-regular fa-eye-slash"
+                  : "fa-solid fa-eye"
+              }`}
+            ></i>
+          </div>
 
-            <div className={styles.form_control}>
-              <label htmlFor="password">
-                Password <p className={styles.err}>{Errors.password}</p>
-              </label>
-              <input
-                required
-                type={showPass1 ? "text" : "password"}
-                id="password"
-                name="password"
-                value={RegisterData.password}
-                onChange={inputHandler}
-              />
-              <i
-                onClick={() => {
-                  setshowPass1(!showPass1);
-                }}
-                className={`${styles.pass} ${
-                  showPass1
-                    ? "fa-sharp fa-regular fa-eye-slash"
-                    : "fa-solid fa-eye"
-                }`}
-              ></i>
-            </div>
+          <div className={styles.form_control}>
+            <label htmlFor="password2">
+              ConfirmPassword <p className={styles.err}>{Errors.password2}</p>
+            </label>
+            <input
+              required
+              type={showPass2 ? "text" : "password"}
+              id="password2"
+              name="password2"
+              value={RegisterData.password2}
+              onChange={inputHandler}
+            />
+            <i
+              onClick={() => {
+                setshowPass2(!showPass2);
+              }}
+              className={`${styles.pass} ${
+                showPass2
+                  ? "fa-sharp fa-regular fa-eye-slash"
+                  : "fa-solid fa-eye"
+              }`}
+            ></i>
+          </div>
 
-            <div className={styles.form_control}>
-              <label htmlFor="password2">
-                ConfirmPassword <p className={styles.err}>{Errors.password2}</p>
-              </label>
-              <input
-                required
-                type={showPass2 ? "text" : "password"}
-                id="password2"
-                name="password2"
-                value={RegisterData.password2}
-                onChange={inputHandler}
-              />
-              <i
-                onClick={() => {
-                  setshowPass2(!showPass2);
-                }}
-                className={`${styles.pass} ${
-                  showPass2
-                    ? "fa-sharp fa-regular fa-eye-slash"
-                    : "fa-solid fa-eye"
-                }`}
-              ></i>
-            </div>
+          <div className={styles["login-reigister-container"]}>
+            <button className={styles.button} type="submit">
+              Create <i className="fa-sharp fa-solid fa-arrow-right"></i>
+            </button>
             <span className={styles.login_now}>
               already a member?
               <br />
               <Link to={"/login"}>login now</Link>
             </span>
-            <button className={styles.button} type="submit">
-              Create <i className="fa-sharp fa-solid fa-arrow-right"></i>
-            </button>
-          </form>
-        </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

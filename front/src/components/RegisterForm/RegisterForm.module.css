@@ -1,15 +1,13 @@
 .Form_container {
-  margin-top: 50px;
-  position: absolute;
+  text-align: left;
+  margin-top: 100px;
+  position: relative;
   background-color: white;
   box-shadow: 0 4px 5px rgb(0 0 0 / 20%);
-  padding: 20px;
+  padding: 30px 20px;
   width: 90vw;
   max-width: 800px;
-  margin: auto;
   border-radius: 10px;
-  transform: translate(-50%,-45%);
-  top: 50%;
 }
 
 .header_container i {
@@ -83,8 +81,6 @@ form {
 }
 .forgetpass a {
   font-size: 14px;
-  position: absolute;
-  right: 20px;
   text-decoration: none;
 }
 
@@ -116,12 +112,17 @@ form {
 }
 
 .login_now{
+  margin-top: 10px;
   text-align: center;
-  position: absolute;
-  right: 20px;
   font-size: 14px;
 }
 
 .pass{
   cursor: pointer;
+}
+
+.login-reigister-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
