@@ -1,5 +1,4 @@
 
-
 .profile_container {
   background-color: white;
   margin-top: 60px;
@@ -58,6 +57,7 @@
 }
 
 .right .field {
+  width: 100%;
   color: #777989;
   width: min(100%,300px);
   margin: 0 20px;
@@ -71,8 +71,9 @@
   padding: 10px 5px;
   color: black;
   margin: 10px 0;
-  padding: 10px;
   min-height: 40px;
+  /* overflow: auto; or overflow: hidden; */
+  word-wrap: break-word; /* or white-space: normal; */
 }
 .row {
   display: flex;
@@ -87,6 +88,7 @@
     width: 100%;
   }
   .right{
+    padding:0;
     width: 100%;
   }
   body{
