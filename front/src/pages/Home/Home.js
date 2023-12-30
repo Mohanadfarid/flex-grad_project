@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 import styles from "./home.module.css";
-import * as Apis from "../../api_handller";
 export const Home = ({ IP, token, userData, currentPage, setcurrentPage }) => {
   setcurrentPage("home");
   const [active_qs, setactive_qs] = useState([false, false, false, false]);

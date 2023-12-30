@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+
 import Food from "../../components/food/Food";
 import styles from "./favorite.module.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 
 const Favorite = ({

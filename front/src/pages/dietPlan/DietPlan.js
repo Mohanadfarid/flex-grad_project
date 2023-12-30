@@ -29,7 +29,7 @@ export const DietPlan = ({
       JSON.parse(localStorage.getItem("userData")).dinner.length >= 3
     ) {
       console.log("condition true");
-      const res = await Apis.getData2(
+      const res = await Apis.getData(
         `https://felx-backend.onrender.com/${userData._id}/dietplan`
       );
       console.log(await res);

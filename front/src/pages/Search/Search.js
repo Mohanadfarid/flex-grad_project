@@ -21,7 +21,7 @@ const Search = ({
   const inputHandller = async (e) => {
     e.preventDefault();
     setinput(e.target.value);
-    const result = await Apis.getData2(
+    const result = await Apis.getData(
       `https://felx-backend.onrender.com/search/${e.target.value}`
     );
     setsearchResult(await result);

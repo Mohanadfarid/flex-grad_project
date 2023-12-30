@@ -51,7 +51,7 @@ export const InfoForm = ({
         await Apis.put(`https://felx-backend.onrender.com/${user_data._id}/getstarted`, info)
           .then(async () => {
             console.log("test");
-            const temp_data = await Apis.getData2(
+            const temp_data = await Apis.getData(
               `https://felx-backend.onrender.com/${user_data._id}/userData`
             );
             console.log("--------?", await temp_data);
