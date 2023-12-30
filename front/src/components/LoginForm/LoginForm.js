@@ -32,10 +32,7 @@ export const LoginForm = ({
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await Apis.postData(
-      `login`,
-      LoginData
-    );
+    const res = await Apis.postData(`login`, LoginData);
     if (typeof res === "undefined") {
       alert(
         "there is something wrong with the back end or the ip configuration"
@@ -137,7 +134,6 @@ export const LoginForm = ({
               <br />
             </span>
           </div>
-
         </form>
       </div>
     </div>
