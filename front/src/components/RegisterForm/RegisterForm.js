@@ -40,7 +40,7 @@ export const RegisterForm = ({ IP, currentPage, token, userData }) => {
     if (RegisterData.password === RegisterData.password2) {
       if (check_strong_pass()) {
         const res = Apis.postData(
-          `https://felx-backend.onrender.com/register`,
+          `register`,
           RegisterData
         );
         handel_err_success(await res);

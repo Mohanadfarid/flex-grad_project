@@ -12,7 +12,7 @@ export const Nav = ({ currentPage, token, userData }) => {
   const logoutHandller = () => {
     localStorage.setItem("token", "");
     localStorage.setItem("userData", "");
-    Apis.getData("https://felx-backend.onrender.com/logout");
+    Apis.getData("logout");
     navigate("/");
     window.location.reload(false);
   };

@@ -25,7 +25,7 @@ function App() {
   setTimeout(() => {
     localStorage.setItem("token", "");
     localStorage.setItem("userData", "");
-    Apis.getData(`https://felx-backend.onrender.com/logout`); // test later
+    Apis.getData(`logout`); // test later
   }, 1000 * 60 * 30);
 
   const setToken = (received_token) => {

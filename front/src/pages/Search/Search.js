@@ -22,7 +22,7 @@ const Search = ({
     e.preventDefault();
     setinput(e.target.value);
     const result = await Apis.getData(
-      `https://felx-backend.onrender.com/search/${e.target.value}`
+      `search/${e.target.value}`
     );
     setsearchResult(await result);
   };

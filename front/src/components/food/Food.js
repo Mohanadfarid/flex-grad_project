@@ -16,7 +16,7 @@ export const Food = ({
   const likeClickHandller = async () => {
     if (cardCategory === "breakfast") {
       const temp_userInfo = await Apis.putData(
-        `https://felx-backend.onrender.com/${userData._id}/pickfood`,
+        `${userData._id}/pickfood`,
         {
           breakfast: [foodObject.id],
           lunch: [],
@@ -29,7 +29,7 @@ export const Food = ({
       setuserInfo(temp_userInfo); // set and update user data in state to triger re render
     } else if (cardCategory === "lunch") {
       const temp_userInfo = await Apis.putData(
-        `https://felx-backend.onrender.com/${userData._id}/pickfood`,
+        `${userData._id}/pickfood`,
         {
           breakfast: [],
           lunch: [foodObject.id],
@@ -42,7 +42,7 @@ export const Food = ({
       setuserInfo(temp_userInfo);
     } else if (cardCategory === "dinner") {
       const temp_userInfo = await Apis.putData(
-        `https://felx-backend.onrender.com/${userData._id}/pickfood`,
+        `${userData._id}/pickfood`,
         {
           breakfast: [],
           lunch: [],
@@ -61,7 +61,7 @@ export const Food = ({
   const dislikeClickHandller = async () => {
     if (cardCategory === "breakfast") {
       const temp_userInfo = await Apis.putData(
-        `https://felx-backend.onrender.com/${userData._id}/removefood`,
+        `${userData._id}/removefood`,
         {
           breakfast: foodObject.id,
         }
@@ -72,7 +72,7 @@ export const Food = ({
       setuserInfo(temp_userInfo); // set and update user data in state to triger re render
     } else if (cardCategory === "lunch") {
       const temp_userInfo = await Apis.putData(
-        `https://felx-backend.onrender.com/${userData._id}/removefood`,
+        `${userData._id}/removefood`,
         {
           lunch: foodObject.id,
         }
@@ -83,7 +83,7 @@ export const Food = ({
       setuserInfo(temp_userInfo);
     } else if (cardCategory === "dinner") {
       const temp_userInfo = await Apis.putData(
-        `https://felx-backend.onrender.com/${userData._id}/removefood`,
+        `${userData._id}/removefood`,
         {
           dinner: foodObject.id,
         }

@@ -1,6 +1,8 @@
-export const postData = async (url = "", data = {}) => {
+const baseUrl = "https://felx-backend.onrender.com/"
+
+export const postData = async (endPoint, data = {}) => {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${baseUrl}${endPoint}`, {
       method: "POST",
       credentials: "same-origin",
       headers: {
@@ -15,9 +17,9 @@ export const postData = async (url = "", data = {}) => {
   }
 };
 
-export const getData = async (url) => {
+export const getData = async (endPoint) => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(`${baseUrl}${endPoint}`);
     const json = await response.json();
     return await json;
   } catch (error) {
@@ -25,9 +27,9 @@ export const getData = async (url) => {
   }
 };
 
-export const putData = async (url, data) => {
+export const putData = async (endPoint, data) => {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${baseUrl}${endPoint}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

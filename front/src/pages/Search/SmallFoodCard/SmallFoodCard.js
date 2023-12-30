@@ -6,7 +6,7 @@ const SmallFoodCard = ({foodcategory,imageurl,name,id,setUserData,userData}) => 
     const removeHnadller= async()=>{
         if (foodcategory === "breakfast") {
             const temp_userInfo = await Apis.putData(
-              `https://felx-backend.onrender.com/${userData._id}/removefood`,
+              `${userData._id}/removefood`,
               {
                 breakfast: id,
               }
@@ -15,7 +15,7 @@ const SmallFoodCard = ({foodcategory,imageurl,name,id,setUserData,userData}) => 
             // setuserInfo(temp_userInfo); 
           } else if (foodcategory === "lunch") {
             const temp_userInfo = await Apis.putData(
-              `https://felx-backend.onrender.com/${userData._id}/removefood`,
+              `${userData._id}/removefood`,
               {
                 lunch: id,
               }
@@ -24,7 +24,7 @@ const SmallFoodCard = ({foodcategory,imageurl,name,id,setUserData,userData}) => 
             // setuserInfo(temp_userInfo);
           } else if (foodcategory === "dinner") {
             const temp_userInfo = await Apis.putData(
-              `https://felx-backend.onrender.com/${userData._id}/removefood`,
+              `${userData._id}/removefood`,
               {
                 dinner: id,
               }

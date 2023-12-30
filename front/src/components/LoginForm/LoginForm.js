@@ -33,7 +33,7 @@ export const LoginForm = ({
   const submitHandler = async (e) => {
     e.preventDefault();
     const res = await Apis.postData(
-      `https://felx-backend.onrender.com/login`,
+      `login`,
       LoginData
     );
     if (typeof res === "undefined") {

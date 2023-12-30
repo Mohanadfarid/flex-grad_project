@@ -48,11 +48,11 @@ export const InfoForm = ({
         alert("your weight should be atleast 40");
       } else {
         const user_data = JSON.parse(localStorage.getItem("userData"));
-        await Apis.putData(`https://felx-backend.onrender.com/${user_data._id}/getstarted`, info)
+        await Apis.putData(`${user_data._id}/getstarted`, info)
           .then(async () => {
             console.log("test");
             const temp_data = await Apis.getData(
-              `https://felx-backend.onrender.com/${user_data._id}/userData`
+              `${user_data._id}/userData`
             );
             console.log("--------?", await temp_data);
             setUserData(await temp_data);
