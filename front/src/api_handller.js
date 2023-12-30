@@ -25,7 +25,7 @@ export const getData = async (url) => {
   }
 };
 
-export const put = async (url, data) => {
+export const putData = async (url, data) => {
   try {
     const response = await fetch(url, {
       method: "PUT",
@@ -37,6 +37,6 @@ export const put = async (url, data) => {
     const resData = await response.json();
     return resData;
   } catch (error) {
-    return error
+    return error;
   }
 };

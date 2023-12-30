@@ -15,7 +15,7 @@ export const Food = ({
   
   const likeClickHandller = async () => {
     if (cardCategory === "breakfast") {
-      const temp_userInfo = await Apis.put(
+      const temp_userInfo = await Apis.putData(
         `https://felx-backend.onrender.com/${userData._id}/pickfood`,
         {
           breakfast: [foodObject.id],
@@ -28,7 +28,7 @@ export const Food = ({
       setUserData(temp_userInfo); //set and update the data in the local storage
       setuserInfo(temp_userInfo); // set and update user data in state to triger re render
     } else if (cardCategory === "lunch") {
-      const temp_userInfo = await Apis.put(
+      const temp_userInfo = await Apis.putData(
         `https://felx-backend.onrender.com/${userData._id}/pickfood`,
         {
           breakfast: [],
@@ -41,7 +41,7 @@ export const Food = ({
       setUserData(temp_userInfo);
       setuserInfo(temp_userInfo);
     } else if (cardCategory === "dinner") {
-      const temp_userInfo = await Apis.put(
+      const temp_userInfo = await Apis.putData(
         `https://felx-backend.onrender.com/${userData._id}/pickfood`,
         {
           breakfast: [],
@@ -60,7 +60,7 @@ export const Food = ({
 
   const dislikeClickHandller = async () => {
     if (cardCategory === "breakfast") {
-      const temp_userInfo = await Apis.put(
+      const temp_userInfo = await Apis.putData(
         `https://felx-backend.onrender.com/${userData._id}/removefood`,
         {
           breakfast: foodObject.id,
@@ -71,7 +71,7 @@ export const Food = ({
       setUserData(temp_userInfo); //set and update the data in the local storage
       setuserInfo(temp_userInfo); // set and update user data in state to triger re render
     } else if (cardCategory === "lunch") {
-      const temp_userInfo = await Apis.put(
+      const temp_userInfo = await Apis.putData(
         `https://felx-backend.onrender.com/${userData._id}/removefood`,
         {
           lunch: foodObject.id,
@@ -82,7 +82,7 @@ export const Food = ({
       setUserData(temp_userInfo);
       setuserInfo(temp_userInfo);
     } else if (cardCategory === "dinner") {
-      const temp_userInfo = await Apis.put(
+      const temp_userInfo = await Apis.putData(
         `https://felx-backend.onrender.com/${userData._id}/removefood`,
         {
           dinner: foodObject.id,
