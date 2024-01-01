@@ -1,27 +1,20 @@
 import styles from "./LoginForm.module.css";
 import "font-awesome/css/font-awesome.min.css";
 import React, { useEffect, useState } from "react";
-import * as Apis from "../../api_handller.js";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
 import { useDispatch } from "react-redux";
-import { login } from "../../features/auth/authSlice.js";
+import { clearErrors, login } from "../../features/auth/authSlice.js";
 
-export const LoginForm = ({
-  IP,
-  currentPage,
-  setToken,
-  setUserData,
-  token,
-  userData,
-}) => {
+export const LoginForm = ({ currentPage }) => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
+  //check this logic again later
   useEffect(() => {
-    if (token && userData) {
-      navigate("/");
-    }
+    return () => {
+      dispatch(clearErrors());
+    };
   });
 
   const [LoginData, setLoginData] = useState({ email: "", password: "" });
@@ -36,16 +29,10 @@ export const LoginForm = ({
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // const res = await Apis.postData(`login`, LoginData);
-    const res = dispatch(login(LoginData));
-    if (res.hasOwnProperty("errors")) {
-      handel_errors_state(res.errors);
-    } else {
-      setUserData(res);
-      setToken(res.token);
-      // window.location.reload(false);
-      navigate("/");
-    }
+    dispatch(login(LoginData))
+      .unwrap()
+      .then(() => navigate("/"))
+      .catch((err) => handel_errors_state(err));
   };
 
   const handel_errors_state = (err) => {
@@ -60,15 +47,8 @@ export const LoginForm = ({
 
   return (
     <div>
-      <Nav
-        currentPage={currentPage}
-        token={localStorage.getItem("token")}
-        userData={
-          localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData"))
-            : ""
-        }
-      />
+      <Nav currentPage={currentPage} />
+
       <div className={styles.Form_container}>
         <div className={styles.header_container}>
           <i className="fa-solid fa-right-to-bracket"></i>
@@ -79,7 +59,7 @@ export const LoginForm = ({
         <form onSubmit={submitHandler}>
           <div className={styles.form_control}>
             <label htmlFor="email">
-              Email <p className={styles.err}>{Errors.email_err}</p>{" "}
+              Email <p className={styles.err}>{Errors.email_err}</p>
             </label>
             <input
               required

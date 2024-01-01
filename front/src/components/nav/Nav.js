@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as Apis from "../../api_handller.js";
 import { useSelector } from "react-redux";
 
-export const Nav = ({ currentPage, token }) => {
+export const Nav = ({ currentPage }) => {
   let navigate = useNavigate();
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   const [show_nav_on_mobile, setshow_nav_on_mobile] = useState(false);
@@ -98,7 +98,7 @@ export const Nav = ({ currentPage, token }) => {
             className={`${styles.login_logout} ${
               show_nav_on_mobile ? styles.show : ""
             }`}
-            to="/profile"
+            to="/login"
           >
             Login
           </Link>
