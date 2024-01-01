@@ -3,15 +3,14 @@ import Food from "../../components/food/Food";
 import styles from "./favorite.module.css";
 import { Link, } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
+import { useSelector } from "react-redux";
 
 const Favorite = ({
   currentPage,
   setcurrentPage,
-  token,
-  userData,
-  IP,
   setUserData,
 }) => {
+  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   setcurrentPage("favorite");
   return (
     <div>

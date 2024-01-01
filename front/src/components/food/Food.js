@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import styles from "./food.module.css";
 import * as Apis from "../../api_handller.js";
-
+import {useSelector} from "react-redux"
 export const Food = ({
-  userData,
+
   setUserData,
   foodObject,
   cardcategory,
   isliked,
 }) => {
+  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   const [userInfo, setuserInfo] = useState(userData); //for re rendernig
   const [isLiked, setisLiked] = useState(isliked);
   const [cardCategory, setcardCategory] = useState(cardcategory);
@@ -103,7 +104,7 @@ export const Food = ({
       <p className={styles.serving_text}>serving: {foodObject.serving}</p>
       <p className={styles.calories_text}> calories {Math.round(foodObject.calories)}</p>
 
-      {userData ?  cardCategory === "breakfast"?(
+      {isUserLoggedIn ?  cardCategory === "breakfast"?(
         <div>
           {" "}
           {

@@ -2,17 +2,19 @@ import { React, useEffect } from "react";
 import styles from "./profile.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
+import { useSelector } from "react-redux";
 
-export const Profile = ({ currentPage, setcurrentPage, token, userData }) => {
+export const Profile = ({ currentPage, setcurrentPage, token }) => {
+  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   setcurrentPage("profile");
   let navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(userData._id);
-    if (!token && !userData) {
-      navigate("/login");
-    }
-  });
+  // useEffect(() => {
+  //   console.log(userData._id);
+  //   if (!token && !userData) {
+  //     navigate("/login");
+  //   }
+  // });
 
   return (
     <div className={styles.test}>

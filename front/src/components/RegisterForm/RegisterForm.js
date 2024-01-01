@@ -4,13 +4,14 @@ import * as Apis from "../../api_handller.js";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
 
-export const RegisterForm = ({ IP, currentPage, token, userData }) => {
+export const RegisterForm = ({ IP, currentPage }) => {
   let navigate = useNavigate();
-  useEffect(() => {
-    if (token && userData) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (token && userData) {
+  //     navigate("/");
+  //   }
+  // });
+  
   const [RegisterData, setRegisterData] = useState({
     name: "",
     email: "",
@@ -39,10 +40,7 @@ export const RegisterForm = ({ IP, currentPage, token, userData }) => {
     //console.log(RegisterData); // debug line
     if (RegisterData.password === RegisterData.password2) {
       if (check_strong_pass()) {
-        const res = Apis.postData(
-          `register`,
-          RegisterData
-        );
+        const res = Apis.postData(`register`, RegisterData);
         handel_err_success(await res);
       } else {
         setErrors({

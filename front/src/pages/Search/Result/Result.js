@@ -1,7 +1,8 @@
 import React from 'react'
 import Food from '../../../components/food/Food';
-
-export const Result = ({foodcategory,searchResult,searchCategory,userData,setUserData}) => {
+import { useSelector } from 'react-redux';
+export const Result = ({foodcategory,searchResult,searchCategory,setUserData}) => {
+  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
     return (
     <>
         {searchResult

@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import styles from "./search.module.css";
 import { Nav } from "../../components/nav/Nav";
-
 import * as Apis from "../../api_handller.js";
 import SmallFoodCard from "./SmallFoodCard/SmallFoodCard";
 import { Result } from "./Result/Result";
+import { useSelector } from "react-redux";
 const Search = ({
   currentPage,
   setcurrentPage,
-  userData,
   setUserData,
 }) => {
-
+  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   setcurrentPage("search");
 
   const [input, setinput] = useState("");

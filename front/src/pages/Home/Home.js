@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 import styles from "./home.module.css";
-export const Home = ({ IP, token, userData, currentPage, setcurrentPage }) => {
+import { useSelector } from "react-redux";
+export const Home = ({ IP, token, currentPage, setcurrentPage }) => {
+  
+  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   setcurrentPage("home");
   const [active_qs, setactive_qs] = useState([false, false, false, false]);
   const QA = [
