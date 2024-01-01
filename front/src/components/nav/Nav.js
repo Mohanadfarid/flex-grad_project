@@ -2,11 +2,11 @@ import styles from "./nav.module.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Apis from "../../api_handller.js";
-import { animateScroll as scroll } from "react-scroll";
+import { useSelector } from "react-redux";
 
-export const Nav = ({ currentPage, token, userData }) => {
+export const Nav = ({ currentPage, token }) => {
   let navigate = useNavigate();
-
+  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   const [show_nav_on_mobile, setshow_nav_on_mobile] = useState(false);
 
   const logoutHandller = () => {
@@ -41,7 +41,7 @@ export const Nav = ({ currentPage, token, userData }) => {
         Home
       </Link>
 
-      {userData ? (
+      {isUserLoggedIn && (
         <Link
           to="/profile"
           className={`${styles.navLink} ${
@@ -50,21 +50,20 @@ export const Nav = ({ currentPage, token, userData }) => {
         >
           {userData.name}
         </Link>
-      ) : (
-        ""
       )}
 
-        {userData?<Link
+      {isUserLoggedIn && (
+        <Link
           to="/dietplan"
           className={`${styles.navLink} ${
             currentPage === "dietplan" ? `${styles.active}` : ""
           } ${show_nav_on_mobile ? styles.show : ""}`}
         >
-         Diet Plan
-        </Link>:''}
-      
+          Diet Plan
+        </Link>
+      )}
 
-      {userData ? (
+      {isUserLoggedIn && (
         <Link
           to="/favorite"
           className={`${styles.navLink} ${
@@ -73,22 +72,19 @@ export const Nav = ({ currentPage, token, userData }) => {
         >
           My Favorite Food
         </Link>
-      ) : (
-        ""
       )}
 
-      
-        <Link
-          to="/search"
-          className={`${styles.navLink} ${
-            currentPage === "search" ? `${styles.active}` : ""
-          } ${show_nav_on_mobile ? styles.show : ""}`}
-        >
-         Search
-        </Link>
-   
+      <Link
+        to="/search"
+        className={`${styles.navLink} ${
+          currentPage === "search" ? `${styles.active}` : ""
+        } ${show_nav_on_mobile ? styles.show : ""}`}
+      >
+        Search
+      </Link>
+
       <div className={styles.getstarted}>
-        {userData ? (
+        {isUserLoggedIn ? (
           <Link
             className={`${styles.login_logout} ${
               show_nav_on_mobile ? styles.show : ""

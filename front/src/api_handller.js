@@ -1,20 +1,16 @@
-const baseUrl = "https://felx-backend.onrender.com/"
+export const baseUrl = "https://felx-backend.onrender.com/";
 
 export const postData = async (endPoint, data = {}) => {
-  try {
-    const response = await fetch(`${baseUrl}${endPoint}`, {
-      method: "POST",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const newData = await response.json();
-    return newData;
-  } catch (error) {
-    return error;
-  }
+  const response = await fetch(`${baseUrl}${endPoint}`, {
+    method: "POST",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const newData = await response.json();
+  return newData;
 };
 
 export const getData = async (endPoint) => {

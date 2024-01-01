@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import * as Apis from "../../api_handller.js";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/auth/authSlice.js";
 
 export const LoginForm = ({
   IP,
@@ -14,6 +16,8 @@ export const LoginForm = ({
   userData,
 }) => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (token && userData) {
       navigate("/");
@@ -32,26 +36,14 @@ export const LoginForm = ({
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await Apis.postData(`login`, LoginData);
-    if (typeof res === "undefined") {
-      alert(
-        "there is something wrong with the back end or the ip configuration"
-      );
-    } else {
-      handel_tokken_and_userData(await res);
-    }
-  };
-
-  const handel_tokken_and_userData = (res) => {
-    console.log(`res line 47 login form`, res);
+    // const res = await Apis.postData(`login`, LoginData);
+    const res = dispatch(login(LoginData));
     if (res.hasOwnProperty("errors")) {
-      // console.log("log in failed");
       handel_errors_state(res.errors);
     } else {
-      // console.log("log in succss!");
       setUserData(res);
       setToken(res.token);
-      window.location.reload(false);
+      // window.location.reload(false);
       navigate("/");
     }
   };
