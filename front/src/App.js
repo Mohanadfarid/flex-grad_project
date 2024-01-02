@@ -39,19 +39,7 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-            <Home
-              currentPage={currentPage}
-              setcurrentPage={setcurrentPage}
-              IP={IP}
-              token={localStorage.getItem("token")}
-              userData={userINFO}
-            />
-          }
-        />
+        <Route exact path="/" element={<Home />} />
         <Route exact path="profile" element={<Profile />} />
         <Route
           exact

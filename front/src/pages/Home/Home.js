@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 import styles from "./home.module.css";
 import { useSelector } from "react-redux";
-export const Home = ({ IP, token, currentPage, setcurrentPage }) => {
-  
-  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
-  setcurrentPage("home");
+
+export const Home = () => {
+  const { isUserLoggedIn } = useSelector((state) => state.auth);
   const [active_qs, setactive_qs] = useState([false, false, false, false]);
   const QA = [
     {
@@ -51,15 +50,7 @@ export const Home = ({ IP, token, currentPage, setcurrentPage }) => {
 
   return (
     <div>
-      <Nav
-        currentPage={currentPage}
-        token={localStorage.getItem("token")}
-        userData={
-          localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData"))
-            : ""
-        }
-      />
+      <Nav currentPage={"home"} />
 
       <section id="section1" className={styles.section1}>
         <div className={styles.s1_content}>
@@ -71,7 +62,7 @@ export const Home = ({ IP, token, currentPage, setcurrentPage }) => {
             and much more!
           </p>
 
-          {userData && token ? (
+          {isUserLoggedIn ? (
             <Link className={styles.LINK} to={"infoForm"}>
               <button>GET STARTED NOW</button>
             </Link>
