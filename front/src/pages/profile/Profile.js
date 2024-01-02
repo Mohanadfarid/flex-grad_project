@@ -1,32 +1,13 @@
-import { React, useEffect } from "react";
 import styles from "./profile.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 import { useSelector } from "react-redux";
 
-export const Profile = ({ currentPage, setcurrentPage, token }) => {
-  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
-  setcurrentPage("profile");
-  let navigate = useNavigate();
-
-  // useEffect(() => {
-  //   console.log(userData._id);
-  //   if (!token && !userData) {
-  //     navigate("/login");
-  //   }
-  // });
-
+export const Profile = () => {
+  const { userData } = useSelector((state) => state.auth);
   return (
     <div className={styles.test}>
-      <Nav
-        currentPage={currentPage}
-        token={localStorage.getItem("token")}
-        userData={
-          localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData"))
-            : ""
-        }
-      />
+      <Nav currentPage={`profile`} />
 
       <div className={styles.profile_container}>
         <div className={styles.left}>
@@ -85,7 +66,6 @@ export const Profile = ({ currentPage, setcurrentPage, token }) => {
             <div className={styles.field}>
               <span>GOAL</span>
               <div className={styles.value_container}>
-                {console.log(userData.goal)}
                 {userData.goal === 1
                   ? "Lose weight"
                   : userData.goal === 2

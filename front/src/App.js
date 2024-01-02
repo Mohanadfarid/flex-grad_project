@@ -52,19 +52,7 @@ function App() {
             />
           }
         />
-        <Route
-          exact
-          path="profile"
-          element={
-            <Profile
-              IP={IP}
-              currentPage={currentPage}
-              setcurrentPage={setcurrentPage}
-              token={localStorage.getItem("token")}
-              userData={userINFO}
-            />
-          }
-        />
+        <Route exact path="profile" element={<Profile />} />
         <Route
           exact
           path="login"
