@@ -44,6 +44,36 @@ export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
   }
 });
 
+export const addToFavourit = createAsyncThunk(
+  "auth/addToFavourit",
+  async (data, thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI;
+    const { _id } = getState().auth.userData;
+    try {
+      const userData = await Apis.putData(`${_id}/pickfood`, data);
+      return userData;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const removeFromFavourit = createAsyncThunk(
+  "auth/removeFromFavourit",
+  async (data, thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI;
+    const { _id } = getState().auth.userData;
+    try {
+      console.log(`${_id}/removefood`);
+      const userData = await Apis.putData(`${_id}/removefood`, data);
+      return userData;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -51,9 +81,9 @@ export const authSlice = createSlice({
     clearUserData: (state) => {
       state = initialState;
     },
-    clearErrors:(state)=>{
-      state.error={}
-    }
+    clearErrors: (state) => {
+      state.error = {};
+    },
   },
   extraReducers: (builder) => {
     //login
@@ -63,15 +93,40 @@ export const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.loading = false;
       state.userData = action.payload;
-      state.isUserLoggedIn=true
+      state.isUserLoggedIn = true;
     });
     builder.addCase(login.rejected, (state, action) => {
       state.loading = false;
-      console.log(action.payload);
+      state.error = action.payload;
+    });
+
+    //add to favourit
+    builder.addCase(addToFavourit.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addToFavourit.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userData = action.payload;
+    });
+    builder.addCase(addToFavourit.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
+    //reomve from favourit
+    builder.addCase(removeFromFavourit.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(removeFromFavourit.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userData = action.payload;
+    });
+    builder.addCase(removeFromFavourit.rejected, (state, action) => {
+      state.loading = false;
       state.error = action.payload;
     });
   },
 });
 
-export const { clearUserData,clearErrors } = authSlice.actions;
+export const { clearUserData, clearErrors } = authSlice.actions;
 export default authSlice.reducer;

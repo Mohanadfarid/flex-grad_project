@@ -24,17 +24,13 @@ export const getData = async (endPoint) => {
 };
 
 export const putData = async (endPoint, data) => {
-  try {
-    const response = await fetch(`${baseUrl}${endPoint}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const resData = await response.json();
-    return resData;
-  } catch (error) {
-    return error;
-  }
+  const response = await fetch(`${baseUrl}${endPoint}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const resData = await response.json();
+  return resData;
 };

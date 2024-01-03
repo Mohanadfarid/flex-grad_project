@@ -1,100 +1,72 @@
-import React from 'react'
-import Food from '../../../components/food/Food';
-import { useSelector } from 'react-redux';
-export const Result = ({foodcategory,searchResult,searchCategory,setUserData}) => {
+import React from "react";
+import Food from "../../../components/food/Food";
+import { useSelector } from "react-redux";
+export const Result = ({
+  foodcategory,
+  searchResult,
+  searchCategory,
+  setUserData,
+}) => {
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
-    return (
+  return (
     <>
-        {searchResult
-                ? searchResult.map((fooditem, index) => {
-                    return (
-                      <div>
-                        {searchCategory === "breakfast" ? (
-                          <Food
-                            key={index}
-                            userData={userData}
-                            setUserData={setUserData}
-                            cardcategory={searchCategory}
-                            isliked={userData? 
-                              userData.favbreakfast.filter(
-                                (favitem) =>
-                                  fooditem.Food_id === favitem.Food_id
-                              ).length > 0
-                                ? true
-                                : false:false
-                            }
-                            foodObject={{
-                              id: fooditem.Food_id,
-                              name: fooditem.Food_name,
-                              serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                              calories:
-                                fooditem.food_calories_per_preferred_serving,
-                              url: fooditem.image,
-                              category: fooditem.category,
-                            }}
-                          />
-                        ) : (
-                          ""
-                        )}
+      {searchResult
+        ? searchResult.map((fooditem, index) => {
+            return (
+              <div>
+                {searchCategory === "breakfast" ? (
+                  <Food
+                    key={index}
+                    cardCategory={searchCategory}
+                    foodObject={{
+                      id: fooditem.Food_id,
+                      name: fooditem.Food_name,
+                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
+                      calories: fooditem.food_calories_per_preferred_serving,
+                      url: fooditem.image,
+                      category: fooditem.category,
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
 
-                        {searchCategory === "lunch" ? (
-                          <Food
-                            key={index}
-                            userData={userData}
-                            setUserData={setUserData}
-                            cardcategory={searchCategory}
-                            isliked={
-                              userData.favlunch.filter(
-                                (favitem) =>
-                                  fooditem.Food_id === favitem.Food_id
-                              ).length > 0
-                                ? true
-                                : false
-                            }
-                            foodObject={{
-                              id: fooditem.Food_id,
-                              name: fooditem.Food_name,
-                              serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                              calories:
-                                fooditem.food_calories_per_preferred_serving,
-                              url: fooditem.image,
-                              category: fooditem.category,
-                            }}
-                          />
-                        ) : (
-                          ""
-                        )}
+                {searchCategory === "lunch" ? (
+                  <Food
+                    key={index}
+                    cardCategory={searchCategory}
+                    foodObject={{
+                      id: fooditem.Food_id,
+                      name: fooditem.Food_name,
+                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
+                      calories: fooditem.food_calories_per_preferred_serving,
+                      url: fooditem.image,
+                      category: fooditem.category,
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
 
-                        {searchCategory === "dinner" ? (
-                          <Food
-                            key={index}
-                            userData={userData}
-                            setUserData={setUserData}
-                            cardcategory={searchCategory}
-                            isliked={
-                              userData.favdinner.filter(
-                                (favitem) =>
-                                  fooditem.Food_id === favitem.Food_id
-                              ).length > 0
-                                ? true
-                                : false
-                            }
-                            foodObject={{
-                              id: fooditem.Food_id,
-                              name: fooditem.Food_name,
-                              serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                              calories:
-                                fooditem.food_calories_per_preferred_serving,
-                              url: fooditem.image,
-                            }}
-                          />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    );
-                  })
-                : ""}
+                {searchCategory === "dinner" ? (
+                  <Food
+                    key={index}
+                    cardCategory={searchCategory}
+                    foodObject={{
+                      id: fooditem.Food_id,
+                      name: fooditem.Food_name,
+                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
+                      calories: fooditem.food_calories_per_preferred_serving,
+                      url: fooditem.image,
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
+            );
+          })
+        : ""}
     </>
-  )
-}
+  );
+};

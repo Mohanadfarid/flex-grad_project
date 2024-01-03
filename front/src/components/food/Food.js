@@ -1,8 +1,13 @@
 import styles from "./food.module.css";
 import * as Apis from "../../api_handller.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToFavourit,
+  removeFromFavourit,
+} from "../../features/auth/authSlice.js";
 
 export const Food = ({ foodObject, cardCategory }) => {
+  const dispatch = useDispatch();
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
 
   const isCurrentFoodLiked = () => {
@@ -32,31 +37,19 @@ export const Food = ({ foodObject, cardCategory }) => {
   };
 
   const likeClickHandller = async () => {
-    if (cardCategory === "breakfast") {
-      const temp_userInfo = await Apis.putData(`${userData._id}/pickfood`, {
-        breakfast: [foodObject.id],
-        lunch: [],
-        dinner: [],
-      });
-    } else if (cardCategory === "lunch") {
-      const temp_userInfo = await Apis.putData(`${userData._id}/pickfood`, {
-        breakfast: [],
-        lunch: [foodObject.id],
-        dinner: [],
-      });
-    } else if (cardCategory === "dinner") {
-      const temp_userInfo = await Apis.putData(`${userData._id}/pickfood`, {
-        breakfast: [],
-        lunch: [],
-        dinner: [foodObject.id],
-      });
-    }
+    const pickedFood = { breakfast: [], lunch: [], dinner: [] };
+    dispatch(addToFavourit({ ...pickedFood, [cardCategory]: [foodObject.id] }));
   };
 
-  const dislikeClickHandller = async () => {
-    const temp_userInfo = await Apis.putData(`${userData._id}/removefood`, {
-      cardCategory: foodObject.id,
+  const dislikeClickHandller = () => {
+    console.log({
+      [cardCategory]: foodObject.id,
     });
+    dispatch(
+      removeFromFavourit({
+        [cardCategory]: foodObject.id,
+      })
+    );
   };
 
   return (
@@ -67,7 +60,6 @@ export const Food = ({ foodObject, cardCategory }) => {
       <p className={styles.calories_text}>
         calories {Math.round(foodObject.calories)}
       </p>
-
 
       {isUserLoggedIn && (
         <div>
