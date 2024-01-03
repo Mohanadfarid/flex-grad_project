@@ -1,178 +1,78 @@
-import React, { useState } from "react";
 import styles from "./food.module.css";
 import * as Apis from "../../api_handller.js";
-import {useSelector} from "react-redux"
-export const Food = ({
+import { useSelector } from "react-redux";
 
-  setUserData,
-  foodObject,
-  cardcategory,
-  isliked,
-}) => {
+export const Food = ({ foodObject, cardCategory }) => {
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
-  const [userInfo, setuserInfo] = useState(userData); //for re rendernig
-  const [isLiked, setisLiked] = useState(isliked);
-  const [cardCategory, setcardCategory] = useState(cardcategory);
-  
+
+  const isCurrentFoodLiked = () => {
+    if (
+      userData[`fav${cardCategory}`].filter(
+        (favitem) => foodObject.id === favitem.Food_id
+      ).length > 0
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const CardButton = () => {
+    const Liked = isCurrentFoodLiked();
+    return (
+      <>
+        <div
+          className={styles.like_container}
+          onClick={Liked ? dislikeClickHandller : likeClickHandller}
+        >
+          <div className={styles.like_text}>{Liked ? "Delete" : "Add"}</div>
+          <i className={`${Liked ? "fa-solid" : "fa-regular"} fa-heart`}></i>
+        </div>
+      </>
+    );
+  };
+
   const likeClickHandller = async () => {
     if (cardCategory === "breakfast") {
-      const temp_userInfo = await Apis.putData(
-        `${userData._id}/pickfood`,
-        {
-          breakfast: [foodObject.id],
-          lunch: [],
-          dinner: [],
-        }
-      );
-      console.log(await temp_userInfo);
-      setisLiked(true);
-      setUserData(temp_userInfo); //set and update the data in the local storage
-      setuserInfo(temp_userInfo); // set and update user data in state to triger re render
+      const temp_userInfo = await Apis.putData(`${userData._id}/pickfood`, {
+        breakfast: [foodObject.id],
+        lunch: [],
+        dinner: [],
+      });
     } else if (cardCategory === "lunch") {
-      const temp_userInfo = await Apis.putData(
-        `${userData._id}/pickfood`,
-        {
-          breakfast: [],
-          lunch: [foodObject.id],
-          dinner: [],
-        }
-      );
-      console.log(await temp_userInfo);
-      setisLiked(true);
-      setUserData(temp_userInfo);
-      setuserInfo(temp_userInfo);
+      const temp_userInfo = await Apis.putData(`${userData._id}/pickfood`, {
+        breakfast: [],
+        lunch: [foodObject.id],
+        dinner: [],
+      });
     } else if (cardCategory === "dinner") {
-      const temp_userInfo = await Apis.putData(
-        `${userData._id}/pickfood`,
-        {
-          breakfast: [],
-          lunch: [],
-          dinner: [foodObject.id],
-        }
-      );
-      console.log(await temp_userInfo);
-      setisLiked(true);
-      setUserData(temp_userInfo);
-      setuserInfo(temp_userInfo);
-    } else {
-      console.log("something went wrong");
+      const temp_userInfo = await Apis.putData(`${userData._id}/pickfood`, {
+        breakfast: [],
+        lunch: [],
+        dinner: [foodObject.id],
+      });
     }
   };
 
   const dislikeClickHandller = async () => {
-    if (cardCategory === "breakfast") {
-      const temp_userInfo = await Apis.putData(
-        `${userData._id}/removefood`,
-        {
-          breakfast: foodObject.id,
-        }
-      );
-      console.log(await temp_userInfo);
-      setisLiked(false);
-      setUserData(temp_userInfo); //set and update the data in the local storage
-      setuserInfo(temp_userInfo); // set and update user data in state to triger re render
-    } else if (cardCategory === "lunch") {
-      const temp_userInfo = await Apis.putData(
-        `${userData._id}/removefood`,
-        {
-          lunch: foodObject.id,
-        }
-      );
-      console.log(await temp_userInfo);
-      setisLiked(false);
-      setUserData(temp_userInfo);
-      setuserInfo(temp_userInfo);
-    } else if (cardCategory === "dinner") {
-      const temp_userInfo = await Apis.putData(
-        `${userData._id}/removefood`,
-        {
-          dinner: foodObject.id,
-        }
-      );
-      console.log(await temp_userInfo);
-      setisLiked(false);
-      setUserData(temp_userInfo);
-      setuserInfo(temp_userInfo);
-    } else {
-      console.log("something went wrong");
-    }
+    const temp_userInfo = await Apis.putData(`${userData._id}/removefood`, {
+      cardCategory: foodObject.id,
+    });
   };
+
   return (
     <div className={styles.food_container}>
       <img src={`${foodObject.url}`} alt="" />
       <p className={styles.name_text}>{foodObject.name}</p>
       <p className={styles.serving_text}>serving: {foodObject.serving}</p>
-      <p className={styles.calories_text}> calories {Math.round(foodObject.calories)}</p>
+      <p className={styles.calories_text}>
+        calories {Math.round(foodObject.calories)}
+      </p>
 
-      {isUserLoggedIn ?  cardCategory === "breakfast"?(
+
+      {isUserLoggedIn && (
         <div>
-          {" "}
-          {
-            userData.favbreakfast.filter(
-              (favitem) => foodObject.id === favitem.Food_id
-            ).length >0?(
-              <div
-                className={styles.like_container}
-                onClick={dislikeClickHandller}
-              >
-                <div className={styles.like_text}>Delete</div>
-                <i className="fa-solid fa-heart"></i>
-              </div>
-            
-          ) : (
-            <div className={styles.like_container} onClick={likeClickHandller}>
-              <div className={styles.like_text}>Add</div>
-              <i className="fa-regular fa-heart"></i>
-            </div>
-          )}
+          <CardButton />
         </div>
-      ):cardCategory === "lunch"?(
-        <div>
-          {" "}
-          {
-            userData.favlunch.filter(
-              (favitem) => foodObject.id === favitem.Food_id
-            ).length >0?(
-              <div
-                className={styles.like_container}
-                onClick={dislikeClickHandller}
-              >
-                <div className={styles.like_text}>Delete</div>
-                <i className="fa-solid fa-heart"></i>
-              </div>
-            
-          ) : (
-            <div className={styles.like_container} onClick={likeClickHandller}>
-              <div className={styles.like_text}>Add</div>
-              <i className="fa-regular fa-heart"></i>
-            </div>
-          )}
-        </div>
-      ):cardCategory === "dinner"?(
-        <div>
-          {" "}
-          {
-            userData.favdinner.filter(
-              (favitem) => foodObject.id === favitem.Food_id
-            ).length >0?(
-              <div
-                className={styles.like_container}
-                onClick={dislikeClickHandller}
-              >
-                <div className={styles.like_text}>Delete</div>
-                <i className="fa-solid fa-heart"></i>
-              </div>
-            
-          ) : (
-            <div className={styles.like_container} onClick={likeClickHandller}>
-              <div className={styles.like_text}>Add</div>
-              <i className="fa-regular fa-heart"></i>
-            </div>
-          )}
-        </div>
-      ):``
-       : (
-        ""
       )}
     </div>
   );

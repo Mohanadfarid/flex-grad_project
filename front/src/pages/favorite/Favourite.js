@@ -46,7 +46,7 @@ const Favorite = ({
                     setUserData={setUserData}
                     key={index}
                     userData={userData}
-                    cardcategory={"breakfast"}
+                    cardCategory={"breakfast"}
                     isliked={
                       userData.favbreakfast.filter(
                         (favitem) => fooditem.Food_id === favitem.Food_id
@@ -76,7 +76,7 @@ const Favorite = ({
                     key={index}
                     userData={userData}
                     setUserData={setUserData}
-                    cardcategory={"lunch"}
+                    cardCategory={"lunch"}
                     isliked={
                       userData.favlunch.filter(
                         (favitem) => fooditem.Food_id === favitem.Food_id
@@ -106,7 +106,7 @@ const Favorite = ({
                     setUserData={setUserData}
                     key={index}
                     userData={userData}
-                    cardcategory={"dinner"}
+                    cardCategory={"dinner"}
                     isliked={
                       userData.favdinner.filter(
                         (favitem) => fooditem.Food_id === favitem.Food_id
