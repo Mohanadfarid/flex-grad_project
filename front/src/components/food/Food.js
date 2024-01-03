@@ -1,5 +1,4 @@
 import styles from "./food.module.css";
-import * as Apis from "../../api_handller.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToFavourit,
@@ -42,9 +41,6 @@ export const Food = ({ foodObject, cardCategory }) => {
   };
 
   const dislikeClickHandller = () => {
-    console.log({
-      [cardCategory]: foodObject.id,
-    });
     dispatch(
       removeFromFavourit({
         [cardCategory]: foodObject.id,

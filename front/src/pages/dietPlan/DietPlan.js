@@ -7,7 +7,7 @@ import styles from "./dietPlan.module.css";
 import { useSelector } from "react-redux";
 
 export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
-  const [userInfo, setuserInfo] = useState(userData);
+
   setcurrentPage("dietplan");
   let navigate = useNavigate();
   useEffect(() => {
@@ -27,7 +27,7 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
       const res = await Apis.getData(`${userData._id}/dietplan`);
       console.log(await res);
       setUserData(await res); //to set the local storage
-      setuserInfo(await res); // to set the state
+
     } else
       alert(
         "you need atleast 3 food items in each category to be able to generate a diet plan"
@@ -72,7 +72,7 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
       <div className={styles.dietPlan_container}>
         {userData.calories > 100 ? (
           <div>
-            {userInfo.dietplan.length > 0 ? (
+            {userData.dietplan.length > 0 ? (
               <div>
                 {" "}
                 <h2 className={styles.tcalories}>
@@ -86,23 +86,13 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
                   <span className={styles.meal_calories}>
                     {calc_calories_for_meal("breakfast")}
                   </span>
-                  {console.log(userInfo.dietplan[0].breakfast)}
+                  {console.log(userData.dietplan[0].breakfast)}
                   {JSON.parse(
                     localStorage.getItem("userData")
                   ).dietplan[0].breakfast.map((food, index) => (
                     <Food
-                      setUserData={setUserData}
                       key={index}
-                      userData={userData}
-                      cardcategory={"breakfast"}
-                      isliked={
-                        userData.favbreakfast.filter(
-                          (favitem) =>
-                            food.food_item.Food_id === favitem.Food_id
-                        ).length > 0
-                          ? true
-                          : false
-                      }
+                      cardCategory={"breakfast"}
                       foodObject={{
                         id: food.food_item.Food_id,
                         name: food.food_item.Food_name,
@@ -127,18 +117,8 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
                     localStorage.getItem("userData")
                   ).dietplan[0].lunch.map((food, index) => (
                     <Food
-                      setUserData={setUserData}
                       key={index}
-                      userData={userData}
-                      cardcategory={"lunch"}
-                      isliked={
-                        userData.favlunch.filter(
-                          (favitem) =>
-                            food.food_item.Food_id === favitem.Food_id
-                        ).length > 0
-                          ? true
-                          : false
-                      }
+                      cardCategory={"lunch"}
                       foodObject={{
                         id: food.food_item.Food_id,
                         name: food.food_item.Food_name,
@@ -163,18 +143,8 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
                     localStorage.getItem("userData")
                   ).dietplan[0].dinner.map((food, index) => (
                     <Food
-                      setUserData={setUserData}
                       key={index}
-                      userData={userData}
-                      cardcategory={"dinner"}
-                      isliked={
-                        userData.favdinner.filter(
-                          (favitem) =>
-                            food.food_item.Food_id === favitem.Food_id
-                        ).length > 0
-                          ? true
-                          : false
-                      }
+                      cardCategory={"dinner"}
                       foodObject={{
                         id: food.food_item.Food_id,
                         name: food.food_item.Food_name,
