@@ -14,13 +14,10 @@ export const postData = async (endPoint, data = {}) => {
 };
 
 export const getData = async (endPoint) => {
-  try {
-    const response = await fetch(`${baseUrl}${endPoint}`);
-    const json = await response.json();
-    return await json;
-  } catch (error) {
-    return error;
-  }
+  console.log(`${baseUrl}${endPoint}`)
+  const response = await fetch(`${baseUrl}${endPoint}`);
+  const json = await response.json();
+  return await json;
 };
 
 export const putData = async (endPoint, data) => {

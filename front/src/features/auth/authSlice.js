@@ -64,11 +64,23 @@ export const removeFromFavourit = createAsyncThunk(
     const { rejectWithValue, getState } = thunkAPI;
     const { _id } = getState().auth.userData;
     try {
-      console.log(`${_id}/removefood`);
       const userData = await Apis.putData(`${_id}/removefood`, data);
       return userData;
     } catch (error) {
-      console.log(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const generateDietPlan = createAsyncThunk(
+  "auth/generateDietPlan",
+  async ( _,thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI;
+    const { _id } = getState().auth.userData;
+    try {
+      const userData = await Apis.getData(`${_id}/dietplan`);
+      return userData;
+    } catch (error) {
       return rejectWithValue(error.message);
     }
   }
@@ -122,6 +134,19 @@ export const authSlice = createSlice({
       state.userData = action.payload;
     });
     builder.addCase(removeFromFavourit.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
+    //genrate diet plan 
+    builder.addCase(generateDietPlan.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(generateDietPlan.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userData = action.payload;
+    });
+    builder.addCase(generateDietPlan.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });

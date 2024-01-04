@@ -2,14 +2,14 @@
   margin-top: 100px;
   width: 90vw;
 }
-.breakFast {
+.breakfast {
   position: relative;
   padding: 10px 0;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
-.breakFast h1,
+.breakfast h1,
 .lunch h1,
 .dinner h1 {
   position: absolute;
