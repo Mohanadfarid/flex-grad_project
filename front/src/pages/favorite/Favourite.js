@@ -1,15 +1,10 @@
-
 import Food from "../../components/food/Food";
 import styles from "./favorite.module.css";
-import { Link, } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 import { useSelector } from "react-redux";
 
-const Favorite = ({
-  currentPage,
-  setcurrentPage,
-  setUserData,
-}) => {
+const Favorite = ({ currentPage, setcurrentPage, setUserData }) => {
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   setcurrentPage("favorite");
   return (
@@ -43,25 +38,9 @@ const Favorite = ({
               {userData.favbreakfast.map((fooditem, index) => {
                 return fooditem ? (
                   <Food
-                    setUserData={setUserData}
                     key={index}
-                    userData={userData}
                     cardCategory={"breakfast"}
-                    isliked={
-                      userData.favbreakfast.filter(
-                        (favitem) => fooditem.Food_id === favitem.Food_id
-                      ).length > 0
-                        ? true
-                        : false
-                    }
-                    foodObject={{
-                      id: fooditem.Food_id,
-                      name: fooditem.Food_name,
-                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                      calories: fooditem.food_calories_per_preferred_serving,
-                      url: fooditem.image,
-                      category: fooditem.category,
-                    }}
+                    foodObject={fooditem}
                   />
                 ) : (
                   ""
@@ -74,24 +53,8 @@ const Favorite = ({
                 return fooditem ? (
                   <Food
                     key={index}
-                    userData={userData}
-                    setUserData={setUserData}
                     cardCategory={"lunch"}
-                    isliked={
-                      userData.favlunch.filter(
-                        (favitem) => fooditem.Food_id === favitem.Food_id
-                      ).length > 0
-                        ? true
-                        : false
-                    }
-                    foodObject={{
-                      id: fooditem.Food_id,
-                      name: fooditem.Food_name,
-                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                      calories: fooditem.food_calories_per_preferred_serving,
-                      url: fooditem.image,
-                      category: fooditem.category,
-                    }}
+                    foodObject={fooditem}
                   />
                 ) : (
                   ""
@@ -103,25 +66,9 @@ const Favorite = ({
               {userData.favdinner.map((fooditem, index) => {
                 return fooditem ? (
                   <Food
-                    setUserData={setUserData}
                     key={index}
-                    userData={userData}
                     cardCategory={"dinner"}
-                    isliked={
-                      userData.favdinner.filter(
-                        (favitem) => fooditem.Food_id === favitem.Food_id
-                      ).length > 0
-                        ? true
-                        : false
-                    }
-                    foodObject={{
-                      id: fooditem.Food_id,
-                      name: fooditem.Food_name,
-                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                      calories: fooditem.food_calories_per_preferred_serving,
-                      url: fooditem.image,
-                      category: fooditem.category,
-                    }}
+                    foodObject={fooditem}
                   />
                 ) : (
                   ""

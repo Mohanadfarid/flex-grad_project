@@ -12,20 +12,14 @@ export const Result = ({
     <>
       {searchResult
         ? searchResult.map((fooditem, index) => {
+            console.log(fooditem);
             return (
               <div>
                 {searchCategory === "breakfast" ? (
                   <Food
                     key={index}
                     cardCategory={searchCategory}
-                    foodObject={{
-                      id: fooditem.Food_id,
-                      name: fooditem.Food_name,
-                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                      calories: fooditem.food_calories_per_preferred_serving,
-                      url: fooditem.image,
-                      category: fooditem.category,
-                    }}
+                    foodObject={fooditem}
                   />
                 ) : (
                   ""
@@ -35,14 +29,7 @@ export const Result = ({
                   <Food
                     key={index}
                     cardCategory={searchCategory}
-                    foodObject={{
-                      id: fooditem.Food_id,
-                      name: fooditem.Food_name,
-                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                      calories: fooditem.food_calories_per_preferred_serving,
-                      url: fooditem.image,
-                      category: fooditem.category,
-                    }}
+                    foodObject={fooditem}
                   />
                 ) : (
                   ""
@@ -52,13 +39,7 @@ export const Result = ({
                   <Food
                     key={index}
                     cardCategory={searchCategory}
-                    foodObject={{
-                      id: fooditem.Food_id,
-                      name: fooditem.Food_name,
-                      serving: `${fooditem.preferred_serving} ${fooditem.measuring_unit}`,
-                      calories: fooditem.food_calories_per_preferred_serving,
-                      url: fooditem.image,
-                    }}
+                    foodObject={fooditem}
                   />
                 ) : (
                   ""

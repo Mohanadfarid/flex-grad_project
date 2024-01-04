@@ -5,14 +5,14 @@ import {
   removeFromFavourit,
 } from "../../features/auth/authSlice.js";
 
-export const Food = ({ foodObject, cardCategory }) => {
+export const Food = ({ N = 1, foodObject, cardCategory }) => {
   const dispatch = useDispatch();
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
 
   const isCurrentFoodLiked = () => {
     if (
       userData[`fav${cardCategory}`].filter(
-        (favitem) => foodObject.id === favitem.Food_id
+        (favitem) => foodObject.Food_id === favitem.Food_id
       ).length > 0
     ) {
       return true;
@@ -37,24 +37,32 @@ export const Food = ({ foodObject, cardCategory }) => {
 
   const likeClickHandller = async () => {
     const pickedFood = { breakfast: [], lunch: [], dinner: [] };
-    dispatch(addToFavourit({ ...pickedFood, [cardCategory]: [foodObject.id] }));
+    dispatch(
+      addToFavourit({ ...pickedFood, [cardCategory]: [foodObject.Food_id] })
+    );
   };
 
   const dislikeClickHandller = () => {
     dispatch(
       removeFromFavourit({
-        [cardCategory]: foodObject.id,
+        [cardCategory]: foodObject.Food_id,
       })
     );
   };
 
   return (
     <div className={styles.food_container}>
-      <img src={`${foodObject.url}`} alt="" />
-      <p className={styles.name_text}>{foodObject.name}</p>
-      <p className={styles.serving_text}>serving: {foodObject.serving}</p>
+      <img src={`${foodObject.image}`} alt="" />
+      <p className={styles.name_text}>{foodObject.Food_name}</p>
+      <p className={styles.serving_text}>
+        serving:
+        {`${(foodObject.preferred_serving * N).toFixed(2)} ${
+          foodObject.measuring_unit
+        }`}
+      </p>
       <p className={styles.calories_text}>
-        calories {Math.round(foodObject.calories)}
+        calories {' '}
+        {Math.round(foodObject.food_calories_per_preferred_serving * N)}
       </p>
 
       {isUserLoggedIn && (

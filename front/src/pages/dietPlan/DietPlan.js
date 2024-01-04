@@ -6,33 +6,22 @@ import { Nav } from "../../components/nav/Nav";
 import styles from "./dietPlan.module.css";
 import { useSelector } from "react-redux";
 
-export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
-
-  setcurrentPage("dietplan");
-  let navigate = useNavigate();
-  useEffect(() => {
-    // if (userData.calories < 200) {
-    //   navigate("/");
-    // }
-  });
+export const DietPlan = () => {
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
 
   const generateDietplanHandller = async () => {
     if (
-      JSON.parse(localStorage.getItem("userData")).breakfast.length >= 3 &&
-      JSON.parse(localStorage.getItem("userData")).lunch.length >= 3 &&
-      JSON.parse(localStorage.getItem("userData")).dinner.length >= 3
+      userData.breakfast.length >= 3 &&
+      userData.lunch.length >= 3 &&
+      userData.dinner.length >= 3
     ) {
-      console.log("condition true");
-      const res = await Apis.getData(`${userData._id}/dietplan`);
-      console.log(await res);
-      setUserData(await res); //to set the local storage
-
+      const res = await Apis.getData(`${userData._id}/dietplan`); // change later to use redux toolkit
     } else
       alert(
         "you need atleast 3 food items in each category to be able to generate a diet plan"
       );
   };
+
   const calc_calories_for_meal = (meal) => {
     let total = 0;
     if (meal === "breakfast") {
@@ -59,22 +48,13 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
 
   return (
     <div>
-      <Nav
-        currentPage={currentPage}
-        token={localStorage.getItem("token")}
-        userData={
-          localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData"))
-            : ""
-        }
-      />
+      <Nav currentPage={`dietplan`} />
 
       <div className={styles.dietPlan_container}>
         {userData.calories > 100 ? (
           <div>
             {userData.dietplan.length > 0 ? (
               <div>
-                {" "}
                 <h2 className={styles.tcalories}>
                   your total calories{" "}
                   <span className={styles.ncalories}>
@@ -86,25 +66,12 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
                   <span className={styles.meal_calories}>
                     {calc_calories_for_meal("breakfast")}
                   </span>
-                  {console.log(userData.dietplan[0].breakfast)}
-                  {JSON.parse(
-                    localStorage.getItem("userData")
-                  ).dietplan[0].breakfast.map((food, index) => (
+                  {userData.dietplan[0].breakfast.map((food, index) => (
                     <Food
                       key={index}
                       cardCategory={"breakfast"}
-                      foodObject={{
-                        id: food.food_item.Food_id,
-                        name: food.food_item.Food_name,
-                        serving: `${Math.round(
-                          food.food_item.preferred_serving * food.n
-                        )} ${food.food_item.measuring_unit}`,
-                        calories:
-                          food.food_item.food_calories_per_preferred_serving *
-                          food.n,
-                        url: food.food_item.image,
-                        category: food.food_item.category,
-                      }}
+                      foodObject={food.food_item}
+                      N={food.n}
                     />
                   ))}
                 </div>
@@ -113,24 +80,12 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
                   <span className={styles.meal_calories}>
                     {calc_calories_for_meal("lunch")}
                   </span>
-                  {JSON.parse(
-                    localStorage.getItem("userData")
-                  ).dietplan[0].lunch.map((food, index) => (
+                  {userData.dietplan[0].lunch.map((food, index) => (
                     <Food
                       key={index}
                       cardCategory={"lunch"}
-                      foodObject={{
-                        id: food.food_item.Food_id,
-                        name: food.food_item.Food_name,
-                        serving: `${Math.round(
-                          food.food_item.preferred_serving * food.n
-                        )} ${food.food_item.measuring_unit}`,
-                        calories:
-                          food.food_item.food_calories_per_preferred_serving *
-                          food.n,
-                        url: food.food_item.image,
-                        category: food.food_item.category,
-                      }}
+                      foodObject={food.food_item}
+                      N={food.n}
                     />
                   ))}
                 </div>
@@ -139,25 +94,16 @@ export const DietPlan = ({ currentPage, setcurrentPage, setUserData, IP }) => {
                   <span className={styles.meal_calories}>
                     {calc_calories_for_meal("dinner")}
                   </span>
-                  {JSON.parse(
-                    localStorage.getItem("userData")
-                  ).dietplan[0].dinner.map((food, index) => (
-                    <Food
-                      key={index}
-                      cardCategory={"dinner"}
-                      foodObject={{
-                        id: food.food_item.Food_id,
-                        name: food.food_item.Food_name,
-                        serving: `${Math.round(
-                          food.food_item.preferred_serving * food.n
-                        )} ${food.food_item.measuring_unit}`,
-                        calories:
-                          food.food_item.food_calories_per_preferred_serving *
-                          food.n,
-                        url: food.food_item.image,
-                        category: food.food_item.category,
-                      }}
-                    />
+                  {userData.dietplan[0].dinner.map((food, index) => (
+                    <>
+                      {console.log(food)}
+                      <Food
+                        key={index}
+                        cardCategory={"dinner"}
+                        foodObject={food.food_item}
+                        N={food.n}
+                      />
+                    </>
                   ))}
                 </div>
               </div>
