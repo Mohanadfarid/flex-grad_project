@@ -14,7 +14,6 @@ export const postData = async (endPoint, data = {}) => {
 };
 
 export const getData = async (endPoint) => {
-  console.log(`${baseUrl}${endPoint}`)
   const response = await fetch(`${baseUrl}${endPoint}`);
   const json = await response.json();
   return await json;
