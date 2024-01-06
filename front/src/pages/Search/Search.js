@@ -5,13 +5,11 @@ import * as Apis from "../../api_handller.js";
 import SmallFoodCard from "./SmallFoodCard/SmallFoodCard";
 import { Result } from "./Result/Result";
 import { useSelector } from "react-redux";
-const Search = ({
-  currentPage,
-  setcurrentPage,
-  setUserData,
-}) => {
+
+const Search = () => {
+  const categories = ["breakfast", "lunch", "dinner"];
+
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
-  setcurrentPage("search");
 
   const [input, setinput] = useState("");
   const [searchResult, setsearchResult] = useState([]);
@@ -20,166 +18,90 @@ const Search = ({
   const inputHandller = async (e) => {
     e.preventDefault();
     setinput(e.target.value);
-    const result = await Apis.getData(
-      `search/${e.target.value}`
-    );
+    const result = await Apis.getData(`search/${e.target.value}`);
     setsearchResult(await result);
   };
 
-  const changeSearchCategory_to_breakfast_Handller = () => {
-    setsearchCategory("breakfast");
-    setinput("");
-    setsearchResult([]);
-  };
-
-  const changeSearchCategory_to_lunch_Handller = () => {
-    setsearchCategory("lunch");
-    setinput("");
-    setsearchResult([]);
-  };
-  
-  const changeSearchCategory_to_dinner_Handller = () => {
-    setsearchCategory("dinner");
+  const setSearchCategoryHandler = (category) => {
+    setsearchCategory(category);
     setinput("");
     setsearchResult([]);
   };
 
   return (
     <div className={styles.container}>
-      <Nav
-        currentPage={currentPage}
-        token={localStorage.getItem("token")}
-        userData={
-          localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData"))
-            : ""
-        }
-      />
-        <div className={styles.pageBody}>
-          <div className={styles.mainContent}>
-            <h2>start adding your favorite food now !</h2>
-            <div className={styles.formController}>
-              <input
-                autoFocus
-                required
-                className={styles.search_bar}
-                value={input}
-                placeholder="Search For Food..."
-                type="text"
-                onChange={inputHandller}
-              ></input>
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </div>
-           {userData?<div> <h2 className={styles.text1}>where would you like to add your food to?</h2>
-            <div className={styles.btns_container}>
-              <button
-                className={`${styles.btn} ${
-                  searchCategory === "breakfast" ? styles.chosen : ""
-                }`}
-                onClick={changeSearchCategory_to_breakfast_Handller}
-              >
-                breakfast
-              </button>
-              <button
-                className={`${styles.btn} ${
-                  searchCategory === "lunch" ? styles.chosen : ""
-                }`}
-                onClick={changeSearchCategory_to_lunch_Handller}
-              >
-                lunch
-              </button>
-              <button
-                className={`${styles.btn} ${
-                  searchCategory === "dinner" ? styles.chosen : ""
-                }`}
-                onClick={changeSearchCategory_to_dinner_Handller}
-              >
-                dinner
-              </button>
-            </div></div>:''}
-            <p className={styles.note}>
-              note make sure you are logged in so you can add or remove food
-            </p>
-            <div className={styles.search_Result_Container}>
-              {searchResult?searchResult.length > 0 ? (
-                <Result
-                  searchResult={searchResult}
-                  searchCategory={searchCategory}
-                  userData={userData}
-                  setUserData={setUserData}
-                />
-              ) : (
-                ""
-              ):""}
-            </div>
+      <Nav currentPage={"search"} />
+
+      <div className={styles.pageBody}>
+        <div className={styles.mainContent}>
+          <h2>start adding your favorite food now !</h2>
+          <div className={styles.formController}>
+            <input
+              autoFocus
+              required
+              className={styles.search_bar}
+              value={input}
+              placeholder="Search For Food..."
+              type="text"
+              onChange={inputHandller}
+            ></input>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </div>
-         {userData? <div className={`${styles.rSlider} ${styles.hideFromMobile}`}>
-            {searchCategory === "breakfast" ? (
-              <h3 className={styles.favheadder}>
-                your favorite breakfast food
-              </h3>
-            ) : (
-              ""
-            )}
-            {searchCategory === "breakfast"
-              ? userData
-                ? userData.favbreakfast.map((fooditem, idx) => (
-                    <SmallFoodCard
-                      key={idx}
-                      userData={userData}
-                      foodcategory={searchCategory}
-                      imageurl={fooditem.image}
-                      name={fooditem.Food_name}
-                      id={fooditem.Food_id}
-                      setUserData={setUserData}
-                    />
-                  ))
-                : ""
-              : ""}
 
-            {searchCategory === "lunch" ? (
-              <h3 className={styles.favheadder}>your favorite lunch food</h3>
-            ) : (
-              ""
-            )}
-            {searchCategory === "lunch"
-              ? userData
-                ? userData.favlunch.map((fooditem, idx) => (
-                    <SmallFoodCard
-                      key={idx}
-                      userData={userData}
-                      foodcategory={searchCategory}
-                      imageurl={fooditem.image}
-                      name={fooditem.Food_name}
-                      id={fooditem.Food_id}
-                      setUserData={setUserData}
-                    />
-                  ))
-                : ""
-              : ""}
+          {/* showing the categoris if the user is loggedin */}
+          {isUserLoggedIn && (
+            <div>
+              <h2 className={styles.text1}>
+                where would you like to add your food to?
+              </h2>
+              <div className={styles.btns_container}>
+                {categories.map((category, index) => (
+                  <button
+                    key={index}
+                    className={`${styles.btn} ${
+                      searchCategory === category ? styles.chosen : ""
+                    }`}
+                    onClick={() => {
+                      setSearchCategoryHandler(category);
+                    }}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
-            {searchCategory === "dinner" ? (
-              <h3 className={styles.favheadder}>your favorite dinner food</h3>
-            ) : (
-              ""
+          <p className={styles.note}>
+            note make sure you are logged in so you can add or remove food
+          </p>
+
+          <div className={styles.search_Result_Container}>
+            {searchResult?.length > 0 && (
+              <Result
+                searchResult={searchResult}
+                searchCategory={searchCategory}
+              />
             )}
-            {searchCategory === "dinner"
-              ? userData
-                ? userData.favdinner.map((fooditem, idx) => (
-                    <SmallFoodCard
-                      key={idx}
-                      userData={userData}
-                      foodcategory={searchCategory}
-                      imageurl={fooditem.image}
-                      name={fooditem.Food_name}
-                      id={fooditem.Food_id}
-                      setUserData={setUserData}
-                    />
-                  ))
-                : ""
-              : ""}
-          </div>:""}
+          </div>
         </div>
+
+        {isUserLoggedIn && (
+          <div className={`${styles.rSlider} ${styles.hideFromMobile}`}>
+            <h3 className={styles.favheadder}>
+              your favorite {searchCategory} food
+            </h3>
+
+            {userData[`fav${searchCategory}`].map((fooditem, idx) => (
+              <SmallFoodCard
+                key={idx}
+                foodObject={fooditem}
+                foodcategory={searchCategory}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,37 +1,24 @@
 import React from "react";
 import styles from "./SmallFoodCard.module.css";
-import * as Apis from "../../../api_handller";
-import { useSelector } from "react-redux";
-const SmallFoodCard = ({ foodcategory, imageurl, name, id, setUserData }) => {
-  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
-  const removeHnadller = async () => {
-    if (foodcategory === "breakfast") {
-      const temp_userInfo = await Apis.putData(`${userData._id}/removefood`, {
-        breakfast: id,
-      });
-      setUserData(temp_userInfo); //set and update the data in the local storage
-      // setuserInfo(temp_userInfo);
-    } else if (foodcategory === "lunch") {
-      const temp_userInfo = await Apis.putData(`${userData._id}/removefood`, {
-        lunch: id,
-      });
-      setUserData(temp_userInfo);
-      // setuserInfo(temp_userInfo);
-    } else if (foodcategory === "dinner") {
-      const temp_userInfo = await Apis.putData(`${userData._id}/removefood`, {
-        dinner: id,
-      });
-      setUserData(temp_userInfo);
-      // setuserInfo(temp_userInfo);
-    } else {
-      console.log("something went wrong");
-    }
+import { useDispatch } from "react-redux";
+import { removeFromFavourit } from "../../../features/auth/authSlice";
+
+const SmallFoodCard = ({ foodcategory, foodObject }) => {
+  const dispatch = useDispatch();
+
+  const dislikeClickHandller = () => {
+    dispatch(
+      removeFromFavourit({
+        [foodcategory]: foodObject.Food_id,
+      })
+    );
   };
+
   return (
     <div className={styles.card}>
-      <img src={imageurl} alt="food" />
-      <div className={styles.name}>{name}</div>
-      <button onClick={removeHnadller} className={styles.removeBtn}>
+      <img src={foodObject.image} alt="food" />
+      <div className={styles.name}>{foodObject.Food_name}</div>
+      <button onClick={dislikeClickHandller} className={styles.removeBtn}>
         remove
       </button>
     </div>
