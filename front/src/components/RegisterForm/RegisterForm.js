@@ -1,6 +1,5 @@
 import styles from "./RegisterForm.module.css";
 import React, { useEffect, useState } from "react";
-import * as Apis from "../../api_handller.js";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
 import { useDispatch } from "react-redux";

@@ -89,6 +89,20 @@ export const removeFromFavourit = createAsyncThunk(
   }
 );
 
+export const calculateCalories = createAsyncThunk(
+  "auth/calculateCalories",
+  async (data, thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI;
+    const { _id } = getState().auth.userData;
+    try {
+      const userData = await Apis.putData(`${_id}/getstarted`, data);
+      return userData;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const generateDietPlan = createAsyncThunk(
   "auth/generateDietPlan",
   async (_, thunkAPI) => {
@@ -115,6 +129,7 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+
     //login
     builder.addCase(login.pending, (state) => {
       state.loading = true;
@@ -167,7 +182,20 @@ export const authSlice = createSlice({
       state.error = action.payload;
     });
 
-    //genrate diet plan
+    //calculate calories
+    builder.addCase(calculateCalories.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(calculateCalories.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userData = action.payload;
+    });
+    builder.addCase(calculateCalories.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
+    //generate diet plan
     builder.addCase(generateDietPlan.pending, (state) => {
       state.loading = true;
     });

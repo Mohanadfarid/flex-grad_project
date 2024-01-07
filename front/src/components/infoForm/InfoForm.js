@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./infoForm.module.css";
-import * as Apis from "../../api_handller.js";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
-import {useSelector} from "react-redux";
+import { useDispatch } from "react-redux";
+import { calculateCalories } from "../../features/auth/authSlice.js";
 
-export const InfoForm = ({
-  currentPage,
-  token,
-  setUserData,
-  setcurrentPage,
-}) => {
+export const InfoForm = () => {
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!token && !userData) {
-  //     navigate("/login");
-  //   }
-  // });
-  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const [warnings, setwarnings] = useState({ age: "", weight: "", height: "" });
   const [step, setstep] = useState(0);
@@ -47,19 +37,10 @@ export const InfoForm = ({
       } else if (info.weight < 40) {
         alert("your weight should be atleast 40");
       } else {
-        const user_data = JSON.parse(localStorage.getItem("userData"));
-        await Apis.putData(`${user_data._id}/getstarted`, info)
-          .then(async () => {
-            console.log("test");
-            const temp_data = await Apis.getData(`${user_data._id}/userData`);
-            console.log("--------?", await temp_data);
-            setUserData(await temp_data);
-          })
-          .then(() => {
-            setcurrentPage("search");
-            navigate("/search");
-            window.location.reload(false);
-          });
+        dispatch(calculateCalories(info))
+          .unwrap()
+          .then(() => navigate("/profile"))
+          .catch((err) => alert(err));
       }
     } else {
       alert(
@@ -104,10 +85,10 @@ export const InfoForm = ({
       }
     }
   };
+
   const next_step_handller = (e) => {
     e.preventDefault();
-    if (step === 4) {
-    } else {
+    if (step !== 4) {
       setstep(step + 1);
     }
   };
@@ -119,15 +100,7 @@ export const InfoForm = ({
 
   return (
     <div>
-      <Nav
-        currentPage={currentPage}
-        token={localStorage.getItem("token")}
-        userData={
-          localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData"))
-            : ""
-        }
-      />
+      <Nav currentPage={"get started"} />
       <div className={styles.form_body}>
         <div
           className={`${styles.progress_bar} ${step === 1 ? styles.one : ""} ${
