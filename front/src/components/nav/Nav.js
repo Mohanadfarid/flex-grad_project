@@ -95,6 +95,7 @@ export const Nav = ({ currentPage }) => {
           </Link>
         ) : (
           <Link
+          onClick={()=>{console.log('login was clicked ')}} //debug code to be reomved later
             className={`${styles.login_logout} ${
               show_nav_on_mobile ? styles.show : ""
             }`}

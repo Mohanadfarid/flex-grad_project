@@ -9,7 +9,12 @@ export const InfoForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [warnings, setwarnings] = useState({ age: "", weight: "", height: "" });
+  const [warnings, setwarnings] = useState({
+    age: "",
+    weight: "",
+    height: "",
+  });
+
   const [step, setstep] = useState(0);
   const [info, setinfo] = useState({
     gender: "",
@@ -22,68 +27,80 @@ export const InfoForm = () => {
 
   const submitHandller = async (e) => {
     e.preventDefault();
+
     if (
-      info.activity_level &&
-      info.age &&
-      info.gender &&
-      info.goal &&
-      info.height &&
-      info.weight
+      !info.activity_level ||
+      !info.age ||
+      !info.gender ||
+      !info.goal ||
+      !info.height ||
+      !info.weight
     ) {
-      if (info.age < 10) {
-        alert("your age should be atleast 10");
-      } else if (info.height < 80) {
-        alert("your height should be atleast 80");
-      } else if (info.weight < 40) {
-        alert("your weight should be atleast 40");
-      } else {
-        dispatch(calculateCalories(info))
-          .unwrap()
-          .then(() => navigate("/profile"))
-          .catch((err) => alert(err));
-      }
-    } else {
-      alert(
-        "please make sure you filled out the whole form before submitting "
-      );
+      alert("please make sure you filled out the whole form before submitting");
+    } else if (isFormDataValid()) {
+      dispatch(calculateCalories(info))
+        .unwrap()
+        .then(() => navigate("/profile"))
+        .catch((err) => alert(err));
     }
   };
 
   const inputHandler = (e) => {
-    console.log(e.target.id);
     e.preventDefault();
+    isFormDataValid(); // so that the warnings update in real time
+
     const key = e.target.id;
     const value = e.target.value;
     setinfo({ ...info, [key]: value });
+  };
 
-    if (e.target.id === "age") {
-      if (e.target.id === "age" && e.target.value < 10) {
-        setwarnings({
-          ...warnings,
-          age: "your age should be atleast above 10",
-        });
-      } else {
-        setwarnings({ ...warnings, age: "" });
-      }
-    } else if (e.target.id === "weight") {
-      if (e.target.id === "weight" && e.target.value < 40) {
-        setwarnings({
-          ...warnings,
-          weight: "your weight should be atleast 40",
-        });
-      } else {
-        setwarnings({ ...warnings, weight: "" });
-      }
-    } else if (e.target.id === "height") {
-      if (e.target.id === "height" && e.target.value < 80) {
-        setwarnings({
-          ...warnings,
-          height: "your height should be atleast 80",
-        });
-      } else {
-        setwarnings({ ...warnings, height: "" });
-      }
+  const isFormDataValid = () => {
+    let isDataValid = true;
+
+    if (info.age < 10) {
+      setwarnings((prevState) => ({
+        ...prevState,
+        age: "your age should be atleast 10",
+      }));
+
+      isDataValid = false;
+    } else {
+      setwarnings((prevState) => ({
+        ...prevState,
+        age: "",
+      }));
+
     }
+
+    if (info.weight < 40) {
+      setwarnings((prevState) => ({
+        ...prevState,
+        weight: "your weight should be atleast 40",
+      }));
+
+      isDataValid = false;
+    } else {
+      setwarnings((prevState) => ({
+        ...prevState,
+        weight: "",
+      }));
+    }
+
+    if (info.height < 80) {
+      setwarnings((prevState) => ({
+        ...prevState,
+        height: "your height should be atleast 80",
+      }));
+
+      isDataValid = false;
+    } else {
+      setwarnings((prevState) => ({
+        ...prevState,
+        height: "",
+      }));
+    }
+
+    return isDataValid;
   };
 
   const next_step_handller = (e) => {
