@@ -3,15 +3,20 @@ import React, { useEffect, useState } from "react";
 import * as Apis from "../../api_handller.js";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
+import { useDispatch } from "react-redux";
+import { clearErrors, register } from "../../features/auth/authSlice.js";
 
-export const RegisterForm = ({ IP, currentPage }) => {
+export const RegisterForm = () => {
   let navigate = useNavigate();
-  // useEffect(() => {
-  //   if (token && userData) {
-  //     navigate("/");
-  //   }
-  // });
-  
+  const dispatch = useDispatch();
+
+  //check this logic again later
+  useEffect(() => {
+    return () => {
+      dispatch(clearErrors());
+    };
+  });
+
   const [RegisterData, setRegisterData] = useState({
     name: "",
     email: "",
@@ -37,22 +42,29 @@ export const RegisterForm = ({ IP, currentPage }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    //console.log(RegisterData); // debug line
-    if (RegisterData.password === RegisterData.password2) {
-      if (check_strong_pass()) {
-        const res = Apis.postData(`register`, RegisterData);
-        handel_err_success(await res);
-      } else {
-        setErrors({
-          password:
-            "your passsword should contain Minimum eight characters, at least one letter and one number",
-        });
-      }
-    } else {
+    if (!checkLocalErrors()) {
+      dispatch(register(RegisterData))
+        .unwrap()
+        .then(() => navigate("/login"))
+        .catch((err) => setErrors({ ...err }));
+    }
+  };
+
+  const checkLocalErrors = () => {
+    if (RegisterData.password !== RegisterData.password2) {
       setErrors({
         password2: "the two passwords you entered does't match",
       });
+      return true;
     }
+    if (!check_strong_pass()) {
+      setErrors({
+        password:
+          "your passsword should contain Minimum eight characters, at least one letter and one number",
+      });
+      return true;
+    }
+    return false;
   };
 
   const check_strong_pass = () => {
@@ -63,28 +75,9 @@ export const RegisterForm = ({ IP, currentPage }) => {
     else return false;
   };
 
-  const handel_err_success = (res) => {
-    if (res.hasOwnProperty("errors")) {
-      setErrors({ ...res.errors });
-      // console.log("registration in failed");
-    } else {
-      // console.log("registration in succss!");
-      navigate("/login");
-      window.location.reload(false);
-    }
-  };
-
   return (
     <div>
-      <Nav
-        currentPage={currentPage}
-        token={localStorage.getItem("token")}
-        userData={
-          localStorage.getItem("userData")
-            ? JSON.parse(localStorage.getItem("userData"))
-            : ""
-        }
-      />
+      <Nav currentPage={"register"} />
 
       <div className={styles.Form_container}>
         <div className={styles.header_container}>
