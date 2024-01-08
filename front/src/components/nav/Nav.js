@@ -33,9 +33,9 @@ export const Nav = () => {
       ></i>
 
       <NavLink
-        activeClassName={styles.active}
+        activeClassName={`active`}
         to="/"
-        className={`${show_nav_on_mobile ? styles.show : ""}`}
+        className={`${styles.navLink} ${show_nav_on_mobile ? styles.show : ""}`}
       >
         Home
       </NavLink>
@@ -44,7 +44,9 @@ export const Nav = () => {
         <NavLink
           activeClassName={styles.active}
           to="/profile"
-          className={`${show_nav_on_mobile ? styles.show : ""}`}
+          className={` ${styles.navLink} ${
+            show_nav_on_mobile ? styles.show : ""
+          }`}
         >
           {userData.name}
         </NavLink>
@@ -54,7 +56,9 @@ export const Nav = () => {
         <NavLink
           activeClassName={styles.active}
           to="/dietplan"
-          className={`${show_nav_on_mobile ? styles.show : ""}`}
+          className={`${styles.navLink}${
+            show_nav_on_mobile ? styles.show : ""
+          }`}
         >
           Diet Plan
         </NavLink>
@@ -64,16 +68,18 @@ export const Nav = () => {
         <NavLink
           activeClassName={styles.active}
           to="/favorite"
-          className={`${show_nav_on_mobile ? styles.show : ""}`}
+          className={` ${styles.navLink}${
+            show_nav_on_mobile ? styles.show : ""
+          }`}
         >
           My Favorite Food
         </NavLink>
       )}
 
       <NavLink
-        activeClassName={styles.active}
+        activeClassName={`active`}
         to="/search"
-        className={`${show_nav_on_mobile ? styles.show : ""}`}
+        className={`${styles.navLink} ${show_nav_on_mobile ? styles.show : ""}`}
       >
         Search
       </NavLink>
