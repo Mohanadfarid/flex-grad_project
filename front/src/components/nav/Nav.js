@@ -33,7 +33,6 @@ export const Nav = () => {
       ></i>
 
       <NavLink
-        activeClassName={`active`}
         to="/"
         className={`${styles.navLink} ${show_nav_on_mobile ? styles.show : ""}`}
       >
@@ -42,7 +41,6 @@ export const Nav = () => {
 
       {isUserLoggedIn && (
         <NavLink
-          activeClassName={styles.active}
           to="/profile"
           className={` ${styles.navLink} ${
             show_nav_on_mobile ? styles.show : ""
@@ -54,7 +52,6 @@ export const Nav = () => {
 
       {isUserLoggedIn && (
         <NavLink
-          activeClassName={styles.active}
           to="/dietplan"
           className={`${styles.navLink}${
             show_nav_on_mobile ? styles.show : ""
@@ -66,7 +63,6 @@ export const Nav = () => {
 
       {isUserLoggedIn && (
         <NavLink
-          activeClassName={styles.active}
           to="/favorite"
           className={` ${styles.navLink}${
             show_nav_on_mobile ? styles.show : ""
@@ -77,7 +73,6 @@ export const Nav = () => {
       )}
 
       <NavLink
-        activeClassName={`active`}
         to="/search"
         className={`${styles.navLink} ${show_nav_on_mobile ? styles.show : ""}`}
       >
