@@ -50,7 +50,7 @@ export const Home = () => {
 
   return (
     <div>
-      <Nav currentPage={"home"} />
+      <Nav />
 
       <section id="section1" className={styles.section1}>
         <div className={styles.s1_content}>

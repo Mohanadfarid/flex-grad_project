@@ -9,7 +9,6 @@ export const RegisterForm = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //check this logic again later
   useEffect(() => {
     return () => {
       dispatch(clearErrors());
@@ -76,7 +75,7 @@ export const RegisterForm = () => {
 
   return (
     <div>
-      <Nav currentPage={"register"} />
+      <Nav />
 
       <div className={styles.Form_container}>
         <div className={styles.header_container}>

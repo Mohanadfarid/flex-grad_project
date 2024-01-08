@@ -26,7 +26,7 @@ const Favorite = () => {
 
   return (
     <>
-      <Nav currentPage={"favorite"} />
+      <Nav />
 
       <div className={styles.container}>
         {doesUserHaveFavFood ? (

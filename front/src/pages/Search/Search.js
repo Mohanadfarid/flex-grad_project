@@ -30,7 +30,7 @@ const Search = () => {
 
   return (
     <div className={styles.container}>
-      <Nav currentPage={"search"} />
+      <Nav />
 
       <div className={styles.pageBody}>
         <div className={styles.mainContent}>

@@ -1,10 +1,10 @@
 import styles from "./nav.module.css";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUserData } from "../../features/auth/authSlice.js";
 
-export const Nav = ({ currentPage }) => {
+export const Nav = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -12,7 +12,7 @@ export const Nav = ({ currentPage }) => {
   const [show_nav_on_mobile, setshow_nav_on_mobile] = useState(false);
 
   const logoutHandller = () => {
-    console.log(" i was clicked")
+    console.log(" i was clicked");
     dispatch(clearUserData());
     navigate("/");
   };
@@ -32,56 +32,51 @@ export const Nav = ({ currentPage }) => {
         }}
       ></i>
 
-      <Link
+      <NavLink
+        activeClassName={styles.active}
         to="/"
-        className={`${styles.navLink} ${
-          currentPage === "home" ? `${styles.active}` : ""
-        } ${show_nav_on_mobile ? styles.show : ""}`}
+        className={`${show_nav_on_mobile ? styles.show : ""}`}
       >
         Home
-      </Link>
+      </NavLink>
 
       {isUserLoggedIn && (
-        <Link
+        <NavLink
+          activeClassName={styles.active}
           to="/profile"
-          className={`${styles.navLink} ${
-            currentPage === "profile" ? `${styles.active}` : ""
-          } ${show_nav_on_mobile ? styles.show : ""}`}
+          className={`${show_nav_on_mobile ? styles.show : ""}`}
         >
           {userData.name}
-        </Link>
+        </NavLink>
       )}
 
       {isUserLoggedIn && (
-        <Link
+        <NavLink
+          activeClassName={styles.active}
           to="/dietplan"
-          className={`${styles.navLink} ${
-            currentPage === "dietplan" ? `${styles.active}` : ""
-          } ${show_nav_on_mobile ? styles.show : ""}`}
+          className={`${show_nav_on_mobile ? styles.show : ""}`}
         >
           Diet Plan
-        </Link>
+        </NavLink>
       )}
 
       {isUserLoggedIn && (
-        <Link
+        <NavLink
+          activeClassName={styles.active}
           to="/favorite"
-          className={`${styles.navLink} ${
-            currentPage === "favorite" ? `${styles.active}` : ""
-          } ${show_nav_on_mobile ? styles.show : ""}`}
+          className={`${show_nav_on_mobile ? styles.show : ""}`}
         >
           My Favorite Food
-        </Link>
+        </NavLink>
       )}
 
-      <Link
+      <NavLink
+        activeClassName={styles.active}
         to="/search"
-        className={`${styles.navLink} ${
-          currentPage === "search" ? `${styles.active}` : ""
-        } ${show_nav_on_mobile ? styles.show : ""}`}
+        className={`${show_nav_on_mobile ? styles.show : ""}`}
       >
         Search
-      </Link>
+      </NavLink>
 
       <div className={styles.getstarted}>
         {isUserLoggedIn ? (
@@ -93,17 +88,14 @@ export const Nav = ({ currentPage }) => {
             <button onClick={logoutHandller}>Logout</button>
           </button>
         ) : (
-          <Link
-            onClick={() => {
-              console.log("login was clicked ");
-            }} //debug code to be reomved later
+          <NavLink
             className={`${styles.login_logout} ${
               show_nav_on_mobile ? styles.show : ""
             }`}
             to="/login"
           >
             Login
-          </Link>
+          </NavLink>
         )}
       </div>
     </nav>

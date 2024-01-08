@@ -6,11 +6,10 @@ import { Nav } from "../nav/Nav";
 import { useDispatch } from "react-redux";
 import { clearErrors, login } from "../../features/auth/authSlice.js";
 
-export const LoginForm = ({ currentPage }) => {
+export const LoginForm = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //check this logic again later
   useEffect(() => {
     return () => {
       dispatch(clearErrors());
@@ -47,7 +46,7 @@ export const LoginForm = ({ currentPage }) => {
 
   return (
     <div>
-      <Nav currentPage={currentPage} />
+      <Nav />
 
       <div className={styles.Form_container}>
         <div className={styles.header_container}>

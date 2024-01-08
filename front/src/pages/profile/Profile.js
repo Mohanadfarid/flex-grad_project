@@ -7,7 +7,7 @@ export const Profile = () => {
   const { userData } = useSelector((state) => state.auth);
   return (
     <div className={styles.test}>
-      <Nav currentPage={`profile`} />
+      <Nav />
 
       <div className={styles.profile_container}>
         <div className={styles.left}>

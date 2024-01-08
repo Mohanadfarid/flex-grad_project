@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import * as Apis from "../../api_handller.js";
 import Food from "../../components/food/Food";
 import { Nav } from "../../components/nav/Nav";
 import styles from "./dietPlan.module.css";
@@ -7,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { generateDietPlan } from "../../features/auth/authSlice.js";
 
 export const DietPlan = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const categories = ["breakfast", "lunch", "dinner"]; // to help render the 3 sections dynamically
   const { userData } = useSelector((state) => state.auth);
 
@@ -17,7 +16,7 @@ export const DietPlan = () => {
       userData.lunch.length >= 3 &&
       userData.dinner.length >= 3
     ) {
-      dispatch(generateDietPlan())
+      dispatch(generateDietPlan());
     } else
       alert(
         "you need atleast 3 food items in each category to be able to generate a diet plan"
@@ -48,7 +47,7 @@ export const DietPlan = () => {
 
   return (
     <div>
-      <Nav currentPage={`dietplan`} />
+      <Nav />
 
       <div className={styles.dietPlan_container}>
         {userData.calories > 100 ? (

@@ -95,7 +95,7 @@ export const InfoForm = () => {
 
   return (
     <div>
-      <Nav currentPage={"get started"} />
+      <Nav/>
       <div className={styles.form_body}>
         <div
           className={`${styles.progress_bar} ${step === 1 ? styles.one : ""} ${
