@@ -1,24 +1,24 @@
 import styles from "./nav.module.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as Apis from "../../api_handller.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUserData } from "../../features/auth/authSlice.js";
 
 export const Nav = ({ currentPage }) => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
   const [show_nav_on_mobile, setshow_nav_on_mobile] = useState(false);
 
   const logoutHandller = () => {
-    localStorage.setItem("token", "");
-    localStorage.setItem("userData", "");
-    Apis.getData("logout");
+    console.log(" i was clicked")
+    dispatch(clearUserData());
     navigate("/");
-    window.location.reload(false);
   };
-  const logout_btn = <button onClick={logoutHandller}>Logout</button>;
+
   return (
-    <div
+    <nav
       className={`${styles.nav_body} ${
         show_nav_on_mobile ? styles.expand : ""
       }`}
@@ -85,17 +85,18 @@ export const Nav = ({ currentPage }) => {
 
       <div className={styles.getstarted}>
         {isUserLoggedIn ? (
-          <Link
+          <button
             className={`${styles.login_logout} ${
               show_nav_on_mobile ? styles.show : ""
             }`}
-            to="/profile"
           >
-            {logout_btn}
-          </Link>
+            <button onClick={logoutHandller}>Logout</button>
+          </button>
         ) : (
           <Link
-          onClick={()=>{console.log('login was clicked ')}} //debug code to be reomved later
+            onClick={() => {
+              console.log("login was clicked ");
+            }} //debug code to be reomved later
             className={`${styles.login_logout} ${
               show_nav_on_mobile ? styles.show : ""
             }`}
@@ -105,6 +106,6 @@ export const Nav = ({ currentPage }) => {
           </Link>
         )}
       </div>
-    </div>
+    </nav>
   );
 };

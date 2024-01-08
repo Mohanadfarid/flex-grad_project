@@ -122,14 +122,13 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     clearUserData: (state) => {
-      state = initialState;
+      Object.assign(state, initialState);
     },
     clearErrors: (state) => {
       state.error = {};
-    },
+    }
   },
   extraReducers: (builder) => {
-
     //login
     builder.addCase(login.pending, (state) => {
       state.loading = true;
