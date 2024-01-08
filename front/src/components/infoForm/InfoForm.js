@@ -28,79 +28,57 @@ export const InfoForm = () => {
   const submitHandller = async (e) => {
     e.preventDefault();
 
-    if (
-      !info.activity_level ||
-      !info.age ||
-      !info.gender ||
-      !info.goal ||
-      !info.height ||
-      !info.weight
-    ) {
+    const isFormFull =
+      info.activity_level &&
+      info.age &&
+      info.gender &&
+      info.goal &&
+      info.height &&
+      info.weight;
+
+    const isThereWarnings = warnings.age || warnings.height || warnings.weight;
+
+    if (!isFormFull) {
       alert("please make sure you filled out the whole form before submitting");
-    } else if (isFormDataValid()) {
+    } else if (!isThereWarnings) {
       dispatch(calculateCalories(info))
         .unwrap()
         .then(() => navigate("/profile"))
         .catch((err) => alert(err));
+    } else {
+      alert("please fix the warnings in your data before submitting");
     }
   };
 
   const inputHandler = (e) => {
     e.preventDefault();
-    isFormDataValid(); // so that the warnings update in real time
 
     const key = e.target.id;
     const value = e.target.value;
     setinfo({ ...info, [key]: value });
+    isFormDataValid(key, value); // so that the warnings update in real time
   };
 
-  const isFormDataValid = () => {
-    let isDataValid = true;
+  const isFormDataValid = (key, value) => {
+    const restrictions = {
+      age: { limit: 10, warning: "your age should be atleast 10" },
+      weight: { limit: 40, warning: "your weight should be atleast 40" },
+      height: { limit: 80, warning: "your height should be atleast 80" },
+    };
 
-    if (info.age < 10) {
+    if (value < restrictions[key].limit) {
       setwarnings((prevState) => ({
         ...prevState,
-        age: "your age should be atleast 10",
+        [key]: restrictions[key].warning,
       }));
-
-      isDataValid = false;
+      return false;
     } else {
       setwarnings((prevState) => ({
         ...prevState,
-        age: "",
+        [key]: "",
       }));
-
+      return true;
     }
-
-    if (info.weight < 40) {
-      setwarnings((prevState) => ({
-        ...prevState,
-        weight: "your weight should be atleast 40",
-      }));
-
-      isDataValid = false;
-    } else {
-      setwarnings((prevState) => ({
-        ...prevState,
-        weight: "",
-      }));
-    }
-
-    if (info.height < 80) {
-      setwarnings((prevState) => ({
-        ...prevState,
-        height: "your height should be atleast 80",
-      }));
-
-      isDataValid = false;
-    } else {
-      setwarnings((prevState) => ({
-        ...prevState,
-        height: "",
-      }));
-    }
-
-    return isDataValid;
   };
 
   const next_step_handller = (e) => {
