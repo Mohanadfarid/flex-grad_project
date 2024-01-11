@@ -86,7 +86,7 @@ export const Nav = () => {
               show_nav_on_mobile ? styles.show : ""
             }`}
           >
-            <button onClick={logoutHandller}>Logout</button>
+            <div onClick={logoutHandller}>Logout</div>
           </button>
         ) : (
           <NavLink

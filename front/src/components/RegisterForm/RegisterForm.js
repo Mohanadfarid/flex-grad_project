@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
 import { useDispatch } from "react-redux";
 import { clearErrors, register } from "../../features/auth/authSlice.js";
+import WithGuardFrom from "../../util/WithGuardFrom.js";
+import { LOGGEDIN } from "../../util/constants.js";
 
 export const RegisterForm = () => {
   let navigate = useNavigate();
@@ -13,7 +15,7 @@ export const RegisterForm = () => {
     return () => {
       dispatch(clearErrors());
     };
-  });
+  }, [dispatch]);
 
   const [RegisterData, setRegisterData] = useState({
     name: "",
@@ -177,4 +179,4 @@ export const RegisterForm = () => {
     </div>
   );
 };
-export default RegisterForm;
+export default WithGuardFrom(RegisterForm, LOGGEDIN);

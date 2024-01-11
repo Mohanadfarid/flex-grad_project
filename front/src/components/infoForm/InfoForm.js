@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
 import { useDispatch } from "react-redux";
 import { calculateCalories } from "../../features/auth/authSlice.js";
-import LoginGuard from "../../util/LoginGuard.js";
+import WithGuardFrom from "../../util/WithGuardFrom.js";
+import { LOGGEDOUT } from "../../util/constants.js";
 
 export const InfoForm = () => {
   const navigate = useNavigate();
@@ -304,4 +305,4 @@ export const InfoForm = () => {
   );
 };
 
-export default LoginGuard(InfoForm);
+export default WithGuardFrom(InfoForm,LOGGEDOUT);

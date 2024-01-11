@@ -1,17 +1,18 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-const LoginGuard = (Component) => {
-  console.log("login guard worked");
+import { LOGGEDIN, LOGGEDOUT } from "./constants";
+const WithGuardFrom = (Component, from) => {
   const Wrapper = (props) => {
-    console.log("wrapper worked");
     const navigate = useNavigate();
     const { isUserLoggedIn } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        console.log("is the wrappper working ... yes")
-      if (!isUserLoggedIn) {
-        navigate("/",{replace:true});
+      if (from === LOGGEDOUT && !isUserLoggedIn) {
+        navigate("/", { replace: true });
+      }
+      if (from === LOGGEDIN && isUserLoggedIn) {
+        navigate("/", { replace: true });
       }
     }, [isUserLoggedIn, navigate]);
 
@@ -21,5 +22,4 @@ const LoginGuard = (Component) => {
   return Wrapper;
 };
 
-export default LoginGuard;
-
+export default WithGuardFrom;

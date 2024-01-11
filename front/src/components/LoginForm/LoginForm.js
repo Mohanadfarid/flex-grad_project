@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
 import { useDispatch } from "react-redux";
 import { clearErrors, login } from "../../features/auth/authSlice.js";
+import WithGuardFrom from "../../util/WithGuardFrom.js";
+import { LOGGEDIN } from "../../util/constants.js";
 
 export const LoginForm = () => {
   let navigate = useNavigate();
@@ -14,7 +16,7 @@ export const LoginForm = () => {
     return () => {
       dispatch(clearErrors());
     };
-  });
+  },[dispatch]);
 
   const [LoginData, setLoginData] = useState({ email: "", password: "" });
   const [Errors, setErrors] = useState({ email_err: "", password_err: "" });
@@ -111,4 +113,4 @@ export const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default WithGuardFrom(LoginForm, LOGGEDIN);

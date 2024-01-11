@@ -4,7 +4,8 @@ import { Nav } from "../../components/nav/Nav";
 import styles from "./dietPlan.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { generateDietPlan } from "../../features/auth/authSlice.js";
-import LoginGuard from "../../util/LoginGuard.js";
+import WithGuardFrom from "../../util/WithGuardFrom.js";
+import { LOGGEDOUT } from "../../util/constants.js";
 
 export const DietPlan = () => {
   const dispatch = useDispatch();
@@ -96,4 +97,4 @@ export const DietPlan = () => {
   );
 };
 
-export default LoginGuard(DietPlan);
+export default WithGuardFrom(DietPlan,LOGGEDOUT);

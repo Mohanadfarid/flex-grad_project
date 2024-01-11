@@ -3,7 +3,8 @@ import styles from "./favorite.module.css";
 import { Link } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 import { useSelector } from "react-redux";
-import LoginGuard from "../../util/LoginGuard";
+import WithGuardFrom from "../../util/WithGuardFrom";
+import { LOGGEDOUT } from "../../util/constants";
 
 const Favorite = () => {
   const categories = ["breakfast", "lunch", "dinner"];
@@ -58,4 +59,4 @@ const Favorite = () => {
   );
 };
 
-export default LoginGuard(Favorite);
+export default WithGuardFrom(Favorite,LOGGEDOUT);
