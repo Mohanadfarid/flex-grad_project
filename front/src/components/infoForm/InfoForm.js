@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
 import { useDispatch } from "react-redux";
 import { calculateCalories } from "../../features/auth/authSlice.js";
+import LoginGuard from "../../util/LoginGuard.js";
 
 export const InfoForm = () => {
   const navigate = useNavigate();
@@ -95,7 +96,7 @@ export const InfoForm = () => {
 
   return (
     <div>
-      <Nav/>
+      <Nav />
       <div className={styles.form_body}>
         <div
           className={`${styles.progress_bar} ${step === 1 ? styles.one : ""} ${
@@ -303,4 +304,4 @@ export const InfoForm = () => {
   );
 };
 
-export default InfoForm;
+export default LoginGuard(InfoForm);

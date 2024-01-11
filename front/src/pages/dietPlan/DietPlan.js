@@ -4,6 +4,7 @@ import { Nav } from "../../components/nav/Nav";
 import styles from "./dietPlan.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { generateDietPlan } from "../../features/auth/authSlice.js";
+import LoginGuard from "../../util/LoginGuard.js";
 
 export const DietPlan = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ export const DietPlan = () => {
     return Math.round(total);
   };
 
-  const CalculateCaloriesFirst = (
+  const CalculateCaloriesFirst = 
     <div className={styles.container_for_calc_calories}>
       <h2 className={styles.calc_calories_first}>
         We need to calculate your calories first before we could generate your
@@ -43,7 +44,7 @@ export const DietPlan = () => {
         <button>GET STARTED NOW</button>
       </Link>
     </div>
-  );
+  
 
   return (
     <div>
@@ -89,12 +90,10 @@ export const DietPlan = () => {
               </button>
             </div>
           </div>
-        ) : (
-          <CalculateCaloriesFirst />
-        )}
+        ) : CalculateCaloriesFirst}
       </div>
     </div>
   );
 };
 
-export default DietPlan;
+export default LoginGuard(DietPlan);

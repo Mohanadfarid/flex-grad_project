@@ -2,6 +2,7 @@ import styles from "./profile.module.css";
 import { Link } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 import { useSelector } from "react-redux";
+import LoginGuard from "../../util/LoginGuard";
 
 export const Profile = () => {
   const { userData } = useSelector((state) => state.auth);
@@ -80,4 +81,4 @@ export const Profile = () => {
   );
 };
 
-export default Profile;
+export default LoginGuard(Profile);
