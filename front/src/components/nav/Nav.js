@@ -53,7 +53,7 @@ export const Nav = () => {
       {isUserLoggedIn && (
         <NavLink
           to="/dietplan"
-          className={`${styles.navLink}${
+          className={`${styles.navLink} ${
             show_nav_on_mobile ? styles.show : ""
           }`}
         >
@@ -64,7 +64,7 @@ export const Nav = () => {
       {isUserLoggedIn && (
         <NavLink
           to="/favorite"
-          className={` ${styles.navLink}${
+          className={` ${styles.navLink} ${
             show_nav_on_mobile ? styles.show : ""
           }`}
         >
