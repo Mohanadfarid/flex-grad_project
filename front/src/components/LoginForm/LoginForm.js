@@ -3,10 +3,11 @@ import "font-awesome/css/font-awesome.min.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login } from "../../features/auth/authSlice.js";
 import WithGuardFrom from "../../util/WithGuardFrom.js";
 import { LOGGEDIN } from "../../util/constants.js";
+import ButtonLoadingHandler from "../Loading/ButtonLoadingHandler.jsx";
 
 export const LoginForm = () => {
   let navigate = useNavigate();
@@ -16,8 +17,9 @@ export const LoginForm = () => {
     return () => {
       dispatch(clearErrors());
     };
-  },[dispatch]);
+  }, [dispatch]);
 
+  const { loading } = useSelector((state) => state.auth);
   const [LoginData, setLoginData] = useState({ email: "", password: "" });
   const [Errors, setErrors] = useState({ email_err: "", password_err: "" });
   const [showPass, setshowPass] = useState(false);
@@ -98,9 +100,11 @@ export const LoginForm = () => {
           </div>
 
           <div className={styles["login-reigister-container"]}>
-            <button className={styles.button} type="submit">
-              Login <i className="fa-sharp fa-solid fa-arrow-right"></i>
-            </button>
+            <ButtonLoadingHandler loading={loading} loadingText={"Loading..."}>
+              <button className={styles.button} type="submit">
+                Login <i className="fa-sharp fa-solid fa-arrow-right"></i>
+              </button>
+            </ButtonLoadingHandler>
             <span className={styles.forgetpass}>
               <span>don't have an account?</span> <br />
               <Link to={"/register"}> register now!</Link>

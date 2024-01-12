@@ -2,12 +2,14 @@ import styles from "./RegisterForm.module.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, register } from "../../features/auth/authSlice.js";
 import WithGuardFrom from "../../util/WithGuardFrom.js";
 import { LOGGEDIN } from "../../util/constants.js";
+import ButtonLoadingHandler from "../Loading/ButtonLoadingHandler.jsx";
 
 export const RegisterForm = () => {
+  const { loading } = useSelector((state) => state.auth);
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -165,9 +167,11 @@ export const RegisterForm = () => {
           </div>
 
           <div className={styles["login-reigister-container"]}>
-            <button className={styles.button} type="submit">
-              Create <i className="fa-sharp fa-solid fa-arrow-right"></i>
-            </button>
+            <ButtonLoadingHandler loading={loading} loadingText={"Loading..."}>
+              <button className={styles.button} type="submit">
+                Create <i className="fa-sharp fa-solid fa-arrow-right"></i>
+              </button>
+            </ButtonLoadingHandler>
             <span className={styles.login_now}>
               already a member?
               <br />

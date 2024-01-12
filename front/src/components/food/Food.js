@@ -7,7 +7,9 @@ import {
 
 export const Food = ({ N = 1, foodObject, cardCategory }) => {
   const dispatch = useDispatch();
-  const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
+  const { userData, loading, isUserLoggedIn } = useSelector(
+    (state) => state.auth
+  );
 
   const isCurrentFoodLiked = () => {
     if (
@@ -23,15 +25,14 @@ export const Food = ({ N = 1, foodObject, cardCategory }) => {
   const CardButton = () => {
     const Liked = isCurrentFoodLiked();
     return (
-      <>
-        <div
-          className={styles.like_container}
-          onClick={Liked ? dislikeClickHandller : likeClickHandller}
-        >
-          <div className={styles.like_text}>{Liked ? "Delete" : "Add"}</div>
-          <i className={`${Liked ? "fa-solid" : "fa-regular"} fa-heart`}></i>
-        </div>
-      </>
+      <button
+        disabled={loading}
+        className={styles.like_container}
+        onClick={Liked ? dislikeClickHandller : likeClickHandller}
+      >
+        <i className={`${Liked ? "fa-solid" : "fa-regular"} fa-heart`}></i>
+        {Liked ? "Delete" : "Add"}
+      </button>
     );
   };
 
@@ -61,7 +62,7 @@ export const Food = ({ N = 1, foodObject, cardCategory }) => {
         }`}
       </p>
       <p className={styles.calories_text}>
-        calories {' '}
+        calories{" "}
         {Math.round(foodObject.food_calories_per_preferred_serving * N)}
       </p>
 

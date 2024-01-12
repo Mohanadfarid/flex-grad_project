@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import styles from "./infoForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "../nav/Nav";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { calculateCalories } from "../../features/auth/authSlice.js";
 import WithGuardFrom from "../../util/WithGuardFrom.js";
 import { LOGGEDOUT } from "../../util/constants.js";
+import ButtonLoadingHandler from "../Loading/ButtonLoadingHandler.jsx";
 
 export const InfoForm = () => {
+  const { loading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -289,15 +291,17 @@ export const InfoForm = () => {
             >
               BACK
             </button>
-            <button
-              type={step === 4 ? "submit" : ""}
-              className={`${styles.btn} ${styles.nbtn} ${
-                step !== 0 ? styles.show2 : styles.hide
-              }`}
-              onClick={step === 4 ? submitHandller : next_step_handller}
-            >
-              {step === 4 ? "SUBMIT" : " NEXT"}
-            </button>
+            <ButtonLoadingHandler loading={loading} loadingText={"Loading..."}>
+              <button
+                type={step === 4 ? "submit" : ""}
+                className={`${styles.btn} ${styles.nbtn} ${
+                  step !== 0 ? styles.show2 : styles.hide
+                }`}
+                onClick={step === 4 ? submitHandller : next_step_handller}
+              >
+                {step === 4 ? "SUBMIT" : " NEXT"}
+              </button>
+            </ButtonLoadingHandler>
           </div>
         </form>
       </div>
@@ -305,4 +309,4 @@ export const InfoForm = () => {
   );
 };
 
-export default WithGuardFrom(InfoForm,LOGGEDOUT);
+export default WithGuardFrom(InfoForm, LOGGEDOUT);

@@ -48,6 +48,10 @@
   cursor: pointer;
 }
 
+.generateBtn:disabled {
+  opacity: 0.8;
+}
+
 .gBtnContainer {
   width: 100%;
   display: flex;
@@ -90,7 +94,7 @@
   color: #00adb5;
 }
 
-.meal_calories{
+.meal_calories {
   position: absolute;
   top: -35px;
   left: 200px;

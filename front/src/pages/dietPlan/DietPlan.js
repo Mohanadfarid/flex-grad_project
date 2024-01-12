@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { generateDietPlan } from "../../features/auth/authSlice.js";
 import WithGuardFrom from "../../util/WithGuardFrom.js";
 import { LOGGEDOUT } from "../../util/constants.js";
+import ButtonLoadingHandler from "../../components/Loading/ButtonLoadingHandler.jsx";
 
 export const DietPlan = () => {
   const dispatch = useDispatch();
   const categories = ["breakfast", "lunch", "dinner"]; // to help render the 3 sections dynamically
-  const { userData } = useSelector((state) => state.auth);
+  const { userData, loading } = useSelector((state) => state.auth);
 
   const generateDietplanHandller = async () => {
     if (
@@ -35,7 +36,7 @@ export const DietPlan = () => {
     return Math.round(total);
   };
 
-  const CalculateCaloriesFirst = 
+  const CalculateCaloriesFirst = (
     <div className={styles.container_for_calc_calories}>
       <h2 className={styles.calc_calories_first}>
         We need to calculate your calories first before we could generate your
@@ -45,7 +46,7 @@ export const DietPlan = () => {
         <button>GET STARTED NOW</button>
       </Link>
     </div>
-  
+  );
 
   return (
     <div>
@@ -83,18 +84,25 @@ export const DietPlan = () => {
             )}
 
             <div className={styles.gBtnContainer}>
-              <button
-                className={styles.generateBtn}
-                onClick={generateDietplanHandller}
+              <ButtonLoadingHandler
+                loading={loading}
+                loadingText={"Loading..."}
               >
-                Generate Diet Plan
-              </button>
+                <button
+                  className={styles.generateBtn}
+                  onClick={generateDietplanHandller}
+                >
+                  Generate Diet Plan
+                </button>
+              </ButtonLoadingHandler>
             </div>
           </div>
-        ) : CalculateCaloriesFirst}
+        ) : (
+          CalculateCaloriesFirst
+        )}
       </div>
     </div>
   );
 };
 
-export default WithGuardFrom(DietPlan,LOGGEDOUT);
+export default WithGuardFrom(DietPlan, LOGGEDOUT);
