@@ -9,7 +9,7 @@ export const Home = () => {
   const [active_qs, setactive_qs] = useState([false, false, false, false]);
   const QA = [
     {
-      q: "How does the meal planner work?",
+      q: "How does Flex work?",
       a: "Each diet plan selected can be customised according to things such as your personal statistics, current physical condition, activity levels and whether you want to lose fat, stay in shape, or gain muscle. It can be personalised to whether you are a vegan or not, if you have any allergies such as gluten, also including the option for halal and kosher recipes only. You can even tell the planner that you prefer to only drink smoothies in the morning. Once your diet plan is set up, the meal planner automatically finds recipes to match the diet plan criteria. Have a look at the suggested recipes that are produced for you automatically and adjust until you get what is right for you.",
     },
     {
