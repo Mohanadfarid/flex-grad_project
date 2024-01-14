@@ -97,6 +97,9 @@ form {
   background-color: #00ADB5;
   font-weight: bold;
 }
+.button:disabled{
+  opacity: 0.8;
+}
 
 .button:active {
   transform: scale(0.98);

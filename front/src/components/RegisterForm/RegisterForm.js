@@ -167,7 +167,7 @@ export const RegisterForm = () => {
           </div>
 
           <div className={styles["login-reigister-container"]}>
-            <ButtonLoadingHandler loading={loading} loadingText={"Loading..."}>
+            <ButtonLoadingHandler loading={loading} loadingText={"Creating..."}>
               <button className={styles.button} type="submit">
                 Create <i className="fa-sharp fa-solid fa-arrow-right"></i>
               </button>

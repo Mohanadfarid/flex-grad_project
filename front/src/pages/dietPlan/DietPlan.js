@@ -86,7 +86,7 @@ export const DietPlan = () => {
             <div className={styles.gBtnContainer}>
               <ButtonLoadingHandler
                 loading={loading}
-                loadingText={"Loading..."}
+                loadingText={"Generating..."}
               >
                 <button
                   className={styles.generateBtn}
