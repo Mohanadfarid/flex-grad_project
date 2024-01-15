@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import { Nav } from "../../components/nav/Nav";
 import { useSelector } from "react-redux";
 import WithGuardFrom from "../../util/WithGuardFrom";
-import { LOGGEDOUT } from "../../util/constants";
+import { CATEGORIES, LOGGEDOUT } from "../../util/constants";
 
 const Favorite = () => {
-  const categories = ["breakfast", "lunch", "dinner"];
   const { userData } = useSelector((state) => state.auth);
 
   const doesUserHaveFavFood =
@@ -33,7 +32,7 @@ const Favorite = () => {
       <div className={styles.container}>
         {doesUserHaveFavFood ? (
           <div className={styles.favfood_container}>
-            {categories.map(
+            {CATEGORIES.map(
               (category, index) =>
                 userData[`fav${category}`].length > 0 && (
                   <div key={index}>

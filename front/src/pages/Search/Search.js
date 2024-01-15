@@ -5,10 +5,9 @@ import * as Apis from "../../api_handller.js";
 import SmallFoodCard from "./SmallFoodCard/SmallFoodCard";
 import { Result } from "./Result/Result";
 import { useSelector } from "react-redux";
+import { CATEGORIES } from "../../util/constants.js";
 
 const Search = () => {
-  const categories = ["breakfast", "lunch", "dinner"];
-
   const { userData, isUserLoggedIn } = useSelector((state) => state.auth);
 
   const [input, setinput] = useState("");
@@ -55,7 +54,7 @@ const Search = () => {
                 where would you like to add your food to?
               </h2>
               <div className={styles.btns_container}>
-                {categories.map((category, index) => (
+                {CATEGORIES.map((category, index) => (
                   <button
                     key={index}
                     className={`${styles.btn} ${

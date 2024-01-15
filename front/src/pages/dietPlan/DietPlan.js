@@ -5,12 +5,11 @@ import styles from "./dietPlan.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { generateDietPlan } from "../../features/auth/authSlice.js";
 import WithGuardFrom from "../../util/WithGuardFrom.js";
-import { LOGGEDOUT } from "../../util/constants.js";
+import { CATEGORIES, LOGGEDOUT } from "../../util/constants.js";
 import ButtonLoadingHandler from "../../components/Loading/ButtonLoadingHandler.jsx";
 
 export const DietPlan = () => {
   const dispatch = useDispatch();
-  const categories = ["breakfast", "lunch", "dinner"]; // to help render the 3 sections dynamically
   const { userData, loading } = useSelector((state) => state.auth);
 
   const generateDietplanHandller = async () => {
@@ -28,10 +27,10 @@ export const DietPlan = () => {
 
   const calc_calories_for_meal = (meal) => {
     let total = 0;
-    userData.dietplan[0][meal].forEach((breakfast_element) => {
+    userData.dietplan[0][meal].forEach((meal_element) => {
       total +=
-        breakfast_element.n *
-        breakfast_element.food_item.food_calories_per_preferred_serving;
+      meal_element.n *
+      meal_element.food_item.food_calories_per_preferred_serving;
     });
     return Math.round(total);
   };
@@ -64,7 +63,7 @@ export const DietPlan = () => {
                   </span>
                 </h2>
 
-                {categories.map((category, index) => (
+                {CATEGORIES.map((category, index) => (
                   <div key={index} className={styles[category]}>
                     <h1>{category}</h1>{" "}
                     <span className={styles.meal_calories}>
