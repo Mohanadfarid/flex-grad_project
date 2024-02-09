@@ -175,7 +175,9 @@ export const RegisterForm = () => {
             <span className={styles.login_now}>
               already a member?
               <br />
-              <Link to={"/login"}>login now</Link>
+              <Link className={styles.register_login} to={"/login"}>
+                login now
+              </Link>
             </span>
           </div>
         </form>

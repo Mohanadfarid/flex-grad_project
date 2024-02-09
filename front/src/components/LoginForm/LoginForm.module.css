@@ -128,3 +128,11 @@ form {
   flex-direction: column;
   align-items: flex-end;
 }
+
+.autoLogin {
+  cursor: pointer;
+  color: #00adb5;
+}
+.register_login {
+  color: #00adb5;
+}

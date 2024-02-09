@@ -38,6 +38,9 @@ export const LoginForm = () => {
       .catch((err) => handel_errors_state(err));
   };
 
+  const autoLoginHandler = () => {
+    setLoginData({ email: "demo@demo.com", password: "demo1demo1" });
+  };
   const handel_errors_state = (err) => {
     if (err.email === "That email is not registered") {
       setErrors({ email_err: err.email, password_err: "" });
@@ -107,7 +110,14 @@ export const LoginForm = () => {
             </ButtonLoadingHandler>
             <span className={styles.forgetpass}>
               <span>don't have an account?</span> <br />
-              <Link to={"/register"}> register now!</Link>
+              <span className={styles.autoLogin} onClick={autoLoginHandler}>
+                auto login !
+              </span>
+              <br />
+              <Link className={styles.register_login} to={"/register"}>
+                {" "}
+                register now !
+              </Link>
               <br />
             </span>
           </div>
